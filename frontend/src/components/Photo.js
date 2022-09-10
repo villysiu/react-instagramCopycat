@@ -4,7 +4,7 @@ import Card from 'react-bootstrap/Card'
 import HeartLike from "./HeartLike";
 
 const Photo= ({id, url, desc, user, users_liked })=>{
-  
+  console.log(`photo ${id}`)
     return (
       <Col xs={12} md={3}>
       <Card>

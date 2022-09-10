@@ -1,4 +1,5 @@
 import { useEffect, useState, createContext } from 'react';
+import {fetchUser, fetchPhotos} from './components/actions'
 import './App.css';
 import PhotoList from './components/PhotoList';
 import Header from './components/Header';
@@ -11,30 +12,14 @@ const App=()=>{
   const [currUser, setCurrUser]=useState(null);
   const [loading, setLoading]=useState(false)
   const [photos, setPhotos]=useState([])
-  
+  const [filteredPhotos, setFilteredPhotos]=useState([])
   useEffect(()=>{
-    const fetchUser=async ()=>{
-      setLoading(true)
-      try{
-        const response=await fetch("http://localhost:3000/private/getLoginUser", {
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": localStorage.getItem("token"),
-            },
-        })
-        if (!response.ok) throw Error
-        const {id, name}=await response.json()
-        
-        setCurrUser({id:id,name:name})
-        setLoading(false) 
-        
-      } catch(error){
-        console.log("error", error) //("Unauthorized Request. Must be signed in.")
-        setLoading(false) 
-      }   
-    }
-    fetchUser()
+    fetchUser(setCurrUser, setLoading)
   } , [])
+  useEffect(()=>{
+    fetchPhotos(setPhotos, setFilteredPhotos)
+    
+  }, [])
   
   return (
     
@@ -44,10 +29,10 @@ const App=()=>{
           
             <div><Spinner animation="border" /></div>
             :
-            <Header setPhotos={setPhotos} />             
+            <Header photos={photos} setFilteredPhotos={setFilteredPhotos}/>             
         }
         <br /><br /><br />
-        <PhotoList photos={photos} setPhotos={setPhotos} />
+        <PhotoList filteredPhotos={filteredPhotos} />
       </UserContext.Provider>
     </div> 
     
