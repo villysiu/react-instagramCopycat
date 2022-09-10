@@ -27,6 +27,8 @@ export const fetchPhotos=async (setPhotos, setFilteredPhotos) =>{
         if(!response.ok) throw Error
 
         const data=await response.json()
+        console.log(data)
+
         setPhotos(data)
         setFilteredPhotos(data)
     } catch(error){

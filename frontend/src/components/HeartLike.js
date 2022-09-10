@@ -52,17 +52,19 @@ const HeartLike =({photo_id, users_liked})=>{
     return (
         <>
         {currUser? 
-            <div onClick={handleClick}>
-                {currUserLiked ? <HeartFill color="red" /> : <Heart color="red" /> }  
+            <div>
+                {currUserLiked ? <HeartFill color="red"  onClick={handleClick}/> : <Heart color="red"  onClick={handleClick} /> } 
+                <b> &nbsp; &nbsp;{numLikes} likes</b> 
             </div>
             :
             <div>
-            <OverlayTrigger placement="top" overlay={renderTooltip}>
-                <Heart color="red" />
-            </OverlayTrigger>
+                <OverlayTrigger placement="top" overlay={renderTooltip}>
+                    <Heart color="red" />
+                </OverlayTrigger>
+                <b> &nbsp; &nbsp;{numLikes} likes</b> 
             </div>
         }       
-        {numLikes} likes
+        
         </>
     )
 }

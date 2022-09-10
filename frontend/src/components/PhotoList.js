@@ -3,6 +3,7 @@ import Photo from "./Photo"
 
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
+// import CardGroup from 'react-bootstrap/CardGroup';
 
 const PhotoList=({filteredPhotos})=>{
     
@@ -10,6 +11,7 @@ const PhotoList=({filteredPhotos})=>{
         <Container>
             <Row>
                 {filteredPhotos.map((photo)=><Photo key={photo.id} {...photo} />)}
+                
             </Row>
         </Container>
     )
