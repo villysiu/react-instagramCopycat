@@ -9,14 +9,12 @@ export const fetchUser=async (setCurrUser, setLoading)=>{
               "Authorization": localStorage.getItem("token"),
           },
       })
-      if (!response.ok) {
-        console.log("not login")
-      throw "not login"}
+      if (!response.ok) throw Error
       const {id, name}=await response.json()
       
       setCurrUser({id:id,name:name})
     } catch(error){
-      console.log(error) //("Unauthorized Request. Must be signed in.")
+      console.log("Unauthorized Request. Must be signed in.")
       setCurrUser(null) 
       localStorage.removeItem('token')
 

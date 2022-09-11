@@ -18,19 +18,12 @@ const App=()=>{
   useEffect(()=>{
     if(localStorage.getItem('token'))
       fetchUser(setCurrUser, setLoading)
-  } , [localStorage.getItem('token')])
+  } , [])
 
   useEffect(()=>{
     fetchPhotos(setPhotos, setFilteredPhotos)
-    
-  }, [ ])
-  // const addPhotoToList = useCallback((photo) => {
-  //   setFilteredPhotos(prev => [...prev, photo]);
-  // }, []);
+  }, [])
 
-  // const deletePhotoFromList = useCallback((id) => {
-  //   setFilteredPhotos(prev => prev.filter(p=>p.id!==id));
-  // }, []);
 
   return (
     
