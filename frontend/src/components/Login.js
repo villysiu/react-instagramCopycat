@@ -2,7 +2,7 @@ import { useRef, useContext } from "react"
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button'
 import { UserContext } from '../App'
-import { CanvasContext } from "./Header";
+import { CanvasContext } from "./RightPanelCanvas";
 
  const Login = ({setError, toggleLogin }) =>{
     
@@ -31,8 +31,7 @@ import { CanvasContext } from "./Header";
             toggleRightPanel(false)
             
         }catch(error){
-            console.log(error)
-           setError("Email address not existed or incorrect password.")
+           setError("Email address not existed or incorrect password. Please try again.")
         }
     }
 

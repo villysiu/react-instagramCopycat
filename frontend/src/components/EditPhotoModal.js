@@ -17,7 +17,7 @@ const EditPhotoModal=({show, setShow, photo, setDesc})=>{
     const handleDelete=e=>{
         e.preventDefault()
         deletePhoto(id, setShow, setFilteredPhotos, setError)
-        e.target.reset()
+    
     }
     return (
         <Modal show={show} onHide={() => setShow(false)}>

@@ -3,6 +3,7 @@ import Photo from "./Photo"
 import { Container, Row } from 'react-bootstrap';
 
 const PhotoList=({filteredPhotos})=>{
+    console.log("photolist")
     return (
         <Container>
             <Row>

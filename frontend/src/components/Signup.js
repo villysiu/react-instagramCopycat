@@ -1,7 +1,7 @@
 import { useRef, useContext } from "react"
 import {Form, Button} from 'react-bootstrap'
 import { UserContext } from '../App'
-import { CanvasContext } from "./Header";
+import { CanvasContext } from "./RightPanelCanvas";
 
 const Signup=({setError, toggleLogin })=>{
    

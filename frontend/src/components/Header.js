@@ -1,27 +1,16 @@
-
-import Container from 'react-bootstrap/Container';
-import Nav from 'react-bootstrap/Nav';
-import Navbar from 'react-bootstrap/Navbar';
-import Offcanvas from 'react-bootstrap/Offcanvas';
-import Button from 'react-bootstrap/Button';
-import { useState, createContext, useContext } from 'react';
-import User from './User'
-import AddPhoto from './AddPhoto';
+import {Container, Navbar, Button } from 'react-bootstrap';
+import { useState, useContext } from 'react';
 
 import {UserContext} from '../App'
-export const CanvasContext = createContext()
+import RightPanelCanvas from './RightPanelCanvas';
 
 const Header = ({photos, setFilteredPhotos }) =>{
-    const [rightpanel, toggleRightPanel]=useState(false)
+    const [rightPanel, toggleRightPanel]=useState(false)
     const {currUser}=useContext(UserContext)
     
     const handleClick=(e)=>{
         e.preventDefault()
-        toggleRightPanel(!rightpanel)
-    }
-    const filterPhoto=e=>{
-      e.preventDefault()
-      setFilteredPhotos(photos.filter(photo=>photo.photo_uid===currUser.id))
+        toggleRightPanel(!rightPanel)
     }
     const allPhoto=e=>{
       e.preventDefault()
@@ -40,25 +29,8 @@ const Header = ({photos, setFilteredPhotos }) =>{
                
               }
 
-
-            <Navbar.Offcanvas 
-              id={`offcanvasNavbar`} aria-labelledby={`offcanvasNavbarLabel`} placement="end"
-              show={rightpanel} scroll="true" onHide={()=>toggleRightPanel(false)} >
-              <Offcanvas.Header closeButton onClick={handleClick} >
-                <Offcanvas.Title id={`offcanvasNavbarLabel`}>
-                  {currUser && <Button variant="primary" onClick={filterPhoto} > {currUser.name[0]} </Button> }
-                </Offcanvas.Title>
-              </Offcanvas.Header>
-              <Offcanvas.Body>
-                <CanvasContext.Provider value={toggleRightPanel}>
-                <Nav className="justify-content-end flex-grow-1 pe-3">
-                  <User /> 
-                </Nav>
+              <RightPanelCanvas rightPanel={rightPanel} toggleRightPanel={toggleRightPanel} handleClick={handleClick} />
             
-                {currUser &&  <div><hr /><AddPhoto /></div> }
-                </CanvasContext.Provider>
-              </Offcanvas.Body>
-            </Navbar.Offcanvas>
           </Container>
         </Navbar>
     );

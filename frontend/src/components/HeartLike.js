@@ -7,10 +7,8 @@ import { toggleHeart } from './actions';
 const HeartLike =({photo_id, users_liked})=>{
     const {currUser}=useContext(UserContext)
     const [numLikes, setNumLikes]=useState(users_liked.length)
-    const [currUserLiked, setCurrUserLiked]=useState(currUser && users_liked.find(u=>u.user_id===currUser.id))
+    const [currUserLiked, setCurrUserLiked]=useState((currUser && users_liked.find(u=>u.user_id===currUser.id))? true: false)
 
-    
-    
     const handleClick=e=>{
         e.preventDefault()
         toggleHeart(photo_id, setNumLikes, currUserLiked, setCurrUserLiked)

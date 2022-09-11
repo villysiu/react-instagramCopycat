@@ -55,11 +55,11 @@ export const addPhoto=async (photo, setFilteredPhotos, toggleRightPanel)=>{
         if(!response.ok) throw Error
         
         const data=await response.json()
-         setFilteredPhotos((prev)=>[...prev, data])
+        setFilteredPhotos(prev=>[...prev, data])
         toggleRightPanel(false)
     }catch(error){
-        console.log("error", error)
-        window.location.reload(false)
+        console.log("Oops! Something wetn wrong. Please try again")
+        // window.location.reload(false)
     }
 }
 export const updatePhoto=async (id, descBox, setDesc, setShow, setError)=>{

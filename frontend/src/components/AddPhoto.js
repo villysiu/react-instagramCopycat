@@ -1,6 +1,6 @@
 import { useRef, useContext } from "react"
 import {Form, Button} from 'react-bootstrap'
-import { CanvasContext } from "./Header";
+import { CanvasContext } from './RightPanelCanvas'
 import { UserContext } from "../App";
 import { addPhoto } from "./actions";
 

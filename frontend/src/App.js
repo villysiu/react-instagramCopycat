@@ -1,5 +1,6 @@
-import { useEffect, useState, createContext, useCallback } from 'react';
+import { useEffect, useState, createContext } from 'react';
 import {fetchUser, fetchPhotos} from './components/actions'
+
 import './App.css';
 import PhotoList from './components/PhotoList';
 import Header from './components/Header';
@@ -13,7 +14,7 @@ const App=()=>{
   const [loading, setLoading]=useState(false)
   const [photos, setPhotos]=useState([])
   const [filteredPhotos, setFilteredPhotos]=useState([])
-  
+
   useEffect(()=>{
     if(localStorage.getItem('token'))
       fetchUser(setCurrUser, setLoading)
@@ -22,7 +23,7 @@ const App=()=>{
   useEffect(()=>{
     fetchPhotos(setPhotos, setFilteredPhotos)
     
-  }, [])
+  }, [ ])
   // const addPhotoToList = useCallback((photo) => {
   //   setFilteredPhotos(prev => [...prev, photo]);
   // }, []);
@@ -34,7 +35,7 @@ const App=()=>{
   return (
     
     <div className="App">
-      <UserContext.Provider value={{setCurrUser:setCurrUser, currUser: currUser, setFilteredPhotos:setFilteredPhotos }} >
+      <UserContext.Provider value={{setCurrUser:setCurrUser, currUser: currUser, photos: photos, setFilteredPhotos:setFilteredPhotos }} >
         {loading? 
           
             <div><Spinner animation="border" /></div>

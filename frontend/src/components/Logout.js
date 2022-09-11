@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { UserContext } from '../App'
-import { CanvasContext } from "./Header";
+import { CanvasContext } from "./RightPanelCanvas";
 import Button from "react-bootstrap/Button";
 const Logout =()=>{
     const {setCurrUser} = useContext(UserContext);
