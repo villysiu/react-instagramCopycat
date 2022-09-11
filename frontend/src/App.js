@@ -13,9 +13,12 @@ const App=()=>{
   const [loading, setLoading]=useState(false)
   const [photos, setPhotos]=useState([])
   const [filteredPhotos, setFilteredPhotos]=useState([])
+  
   useEffect(()=>{
-    fetchUser(setCurrUser, setLoading)
-  } , [])
+    if(localStorage.getItem('token'))
+      fetchUser(setCurrUser, setLoading)
+  } , [localStorage.getItem('token')])
+
   useEffect(()=>{
     fetchPhotos(setPhotos, setFilteredPhotos)
     

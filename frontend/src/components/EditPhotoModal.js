@@ -3,27 +3,28 @@ import { useState, useContext } from 'react';
 import {updatePhoto, deletePhoto } from './actions'
 import { UserContext } from '../App';
 
-const EditPhoto=({show, setShow, photo, setDesc})=>{
-   const {id, url}=photo
-   const {setFilteredPhotos}=useContext(UserContext)
+const EditPhotoModal=({show, setShow, photo, setDesc})=>{
+    const {id, url}=photo
+    const {setFilteredPhotos}=useContext(UserContext)
     const [descBox, setDescBox]=useState( photo.desc )
     const [error, setError]=useState( null)
-    const handleClose = () => setShow(false);
     
     const handleSubmit=e=>{
         e.preventDefault()
         updatePhoto(id, e.target.descBox.value, setDesc, setShow, setError )
+        e.target.reset()
     }
     const handleDelete=e=>{
         e.preventDefault()
         deletePhoto(id, setShow, setFilteredPhotos, setError)
+        e.target.reset()
     }
     return (
-        <Modal show={show} onHide={handleClose}>
+        <Modal show={show} onHide={() => setShow(false)}>
             <Modal.Header closeButton>
             <Modal.Title><Image src={url} width="100" /></Modal.Title>
             </Modal.Header>
-            <form onSubmit={handleSubmit} >
+            <Form onSubmit={handleSubmit} >
                 <Modal.Body>
                     <Form.Group className="mb-3">
                         <Form.Label>Description</Form.Label>
@@ -39,8 +40,8 @@ const EditPhoto=({show, setShow, photo, setDesc})=>{
                         Save Changes
                     </Button>
                 </Modal.Footer>
-            </form>
+            </Form>
         </Modal>
     )
 }
-export default EditPhoto
+export default EditPhotoModal

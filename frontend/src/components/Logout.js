@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { UserContext } from '../App'
 import { CanvasContext } from "./Header";
+import Button from "react-bootstrap/Button";
 const Logout =()=>{
     const {setCurrUser} = useContext(UserContext);
     const toggleRightPanel = useContext(CanvasContext)
@@ -31,7 +32,7 @@ const Logout =()=>{
     }
     return (
         <div>
-            <input type="button" value='Logout' onClick={handleClick}/>
+            <Button variant="primary" type="Logout" onClick={handleClick} > Logout </Button>
         </div>
     )
 }

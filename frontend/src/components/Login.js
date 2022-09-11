@@ -29,6 +29,7 @@ import { CanvasContext } from "./Header";
 
             setCurrUser({id:id, name:name})
             toggleRightPanel(false)
+            
         }catch(error){
             console.log(error)
            setError("Email address not existed or incorrect password.")
@@ -53,7 +54,7 @@ import { CanvasContext } from "./Header";
     return(
         <div>
             <h2>Welcome back! </h2>
-            <form ref={formRef} onSubmit={handleSubmit}>
+            <Form ref={formRef} onSubmit={handleSubmit}>
                 <Form.Group className="mb-3">
                     <Form.Label>Email address</Form.Label>
                     <Form.Control type="email" name="email" placeholder="name@example.com" required />
@@ -63,12 +64,10 @@ import { CanvasContext } from "./Header";
                     <Form.Label>Password</Form.Label>
                     <Form.Control type="password" name="password" placeholder="password" required/>
                 </Form.Group>
-                <div className="d-grid gap-2">
-                <Button variant="primary" type="submit">
-                    Login
-                </Button>
-                </div>
-            </form>
+                
+                <Button variant="primary" type="submit"> Login </Button>
+  
+            </Form>
             <br />
             <div>Not registered yet, <a href="#signup" onClick={handleClick} >Signup</a> here</div>
         </div>

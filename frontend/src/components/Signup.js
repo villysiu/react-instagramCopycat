@@ -1,6 +1,5 @@
 import { useRef, useContext } from "react"
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button'
+import {Form, Button} from 'react-bootstrap'
 import { UserContext } from '../App'
 import { CanvasContext } from "./Header";
 
@@ -55,7 +54,7 @@ const Signup=({setError, toggleLogin })=>{
     return(
         <div>
             <h2>Sign up for free.</h2>
-            <form ref={formRef} onSubmit={handleSubmit}>
+            <Form ref={formRef} onSubmit={handleSubmit}>
                 <Form.Group className="mb-3">
                     <Form.Label>Email address</Form.Label>
                     <Form.Control type="email" name="email" placeholder="name@example.com" required />
@@ -68,12 +67,12 @@ const Signup=({setError, toggleLogin })=>{
                     <Form.Label>Password</Form.Label>
                     <Form.Control type="password" name="password" placeholder="password"  required minLength="6"/>
                 </Form.Group>
-                <div className="d-grid gap-2">
-                    <Button variant="primary" type="submit">
-                        Signup
-                    </Button>
-                </div>
-            </form>
+                
+                <Button variant="primary" type="submit">
+                    Signup
+                </Button>
+                
+            </Form>
             <br />
             <div>Already registered, <a href="#login" onClick={handleClick} >Login</a> here.</div>
         </div>

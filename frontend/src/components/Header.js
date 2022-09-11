@@ -13,7 +13,6 @@ export const CanvasContext = createContext()
 
 const Header = ({photos, setFilteredPhotos }) =>{
     const [rightpanel, toggleRightPanel]=useState(false)
-    // const [filtered, toggleFiltered]=useState(false)
     const {currUser}=useContext(UserContext)
     
     const handleClick=(e)=>{
@@ -22,18 +21,14 @@ const Header = ({photos, setFilteredPhotos }) =>{
     }
     const filterPhoto=e=>{
       e.preventDefault()
-      // toggleFiltered(!filtered)
       setFilteredPhotos(photos.filter(photo=>photo.photo_uid===currUser.id))
     }
     const allPhoto=e=>{
       e.preventDefault()
-     
       setFilteredPhotos(photos)
     }
     
-
     return (
-        
         <Navbar key="false" bg="light" expand="false" fixed="top" className="mb-3">
           <Container fluid>
             <Navbar.Brand href="#" onClick={allPhoto} >Instagram Copycat</Navbar.Brand>
@@ -42,7 +37,9 @@ const Header = ({photos, setFilteredPhotos }) =>{
                 <Button variant="primary" onClick={handleClick} > {currUser.name[0]} </Button> 
                 :
                 <Navbar.Toggle aria-controls={`offcanvasNavbar`} onClick={handleClick} />
+               
               }
+
 
             <Navbar.Offcanvas 
               id={`offcanvasNavbar`} aria-labelledby={`offcanvasNavbarLabel`} placement="end"
@@ -55,7 +52,7 @@ const Header = ({photos, setFilteredPhotos }) =>{
               <Offcanvas.Body>
                 <CanvasContext.Provider value={toggleRightPanel}>
                 <Nav className="justify-content-end flex-grow-1 pe-3">
-                    <User /> 
+                  <User /> 
                 </Nav>
             
                 {currUser &&  <div><hr /><AddPhoto /></div> }

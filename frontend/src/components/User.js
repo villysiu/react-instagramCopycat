@@ -21,11 +21,11 @@ const User = () => {
         <div>
             <div>{error}</div>
             <div>
-            {login ? 
-                <Login setError={setError} toggleLogin={toggleLogin}  />
-                :
-                <Signup setError={setError} toggleLogin={toggleLogin} />
-            }
+                {login ? 
+                    <Login setError={setError} toggleLogin={toggleLogin}  />
+                    :
+                    <Signup setError={setError} toggleLogin={toggleLogin} />
+                }
             </div>
         </div>
     )
