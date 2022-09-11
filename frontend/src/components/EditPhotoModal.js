@@ -7,16 +7,16 @@ const EditPhotoModal=({show, setShow, photo, setDesc})=>{
     const {id, url}=photo
     const {setFilteredPhotos}=useContext(UserContext)
     const [descBox, setDescBox]=useState( photo.desc )
-    const [error, setError]=useState( null)
+    // const [error, setError]=useState( null)
     
     const handleSubmit=e=>{
         e.preventDefault()
-        updatePhoto(id, e.target.descBox.value, setDesc, setShow, setError )
+        updatePhoto(id, e.target.descBox.value, setDesc, setShow )
         e.target.reset()
     }
     const handleDelete=e=>{
         e.preventDefault()
-        deletePhoto(id, setShow, setFilteredPhotos, setError)
+        deletePhoto(id, setShow, setFilteredPhotos)
     
     }
     return (
@@ -24,13 +24,14 @@ const EditPhotoModal=({show, setShow, photo, setDesc})=>{
             <Modal.Header closeButton>
             <Modal.Title><Image src={url} width="100" /></Modal.Title>
             </Modal.Header>
+            {/* <div class="text-danger">{error}</div> */}
             <Form onSubmit={handleSubmit} >
                 <Modal.Body>
                     <Form.Group className="mb-3">
                         <Form.Label>Description</Form.Label>
                         <Form.Control name="descBox"  as="textarea" value={descBox} onChange={e=>setDescBox(e.target.value)} />
                     </Form.Group>
-                    {/* {error && <p class="text-danger">{error}</p>}  */}
+                    
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="danger" onClick={handleDelete}>

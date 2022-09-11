@@ -19,7 +19,7 @@ const User = () => {
     return (
         
         <div>
-            <div>{error}</div>
+            <div className="text-danger">{error}</div>
             <div>
                 {login ? 
                     <Login setError={setError} toggleLogin={toggleLogin}  />

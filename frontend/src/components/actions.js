@@ -19,6 +19,7 @@ export const fetchUser=async (setCurrUser, setLoading)=>{
       console.log(error) //("Unauthorized Request. Must be signed in.")
       setCurrUser(null) 
       localStorage.removeItem('token')
+
     } finally {
       setLoading(false);
     }  
@@ -59,10 +60,10 @@ export const addPhoto=async (photo, setFilteredPhotos, toggleRightPanel)=>{
         toggleRightPanel(false)
     }catch(error){
         console.log("Oops! Something wetn wrong. Please try again")
-        // window.location.reload(false)
+        window.location.reload()
     }
 }
-export const updatePhoto=async (id, descBox, setDesc, setShow, setError)=>{
+export const updatePhoto=async (id, descBox, setDesc, setShow )=>{
     
     try{
         const response=await fetch(`${url}/photos/${id}`, {
@@ -81,10 +82,12 @@ export const updatePhoto=async (id, descBox, setDesc, setShow, setError)=>{
         setDesc(data.desc)
         setShow(false)
     } catch (error) {
-        setError(error)
+        // console.log("Oops! Something wetn wrong. Please try again.")
+        
+        window.location.reload()
     }
 }
-export const deletePhoto=async (id, setShow, setFilteredPhotos, setError)=>{
+export const deletePhoto=async (id, setShow, setFilteredPhotos)=>{
     
     try {
         const response=await fetch(`${url}/photos/${id}`, {
@@ -99,7 +102,8 @@ export const deletePhoto=async (id, setShow, setFilteredPhotos, setError)=>{
         setFilteredPhotos(prev => prev.filter(p=>p.id!==id));
         setShow(false)
     } catch (error) {
-        setError(error)
+        // setError("Oops! Something went wrong. Please try again.")
+        window.location.reload()
     }
 }
 
@@ -126,6 +130,6 @@ export const toggleHeart=async (id, setNumLikes, currUserLiked, setCurrUserLiked
     } catch (error) {
         setCurrUserLiked(null)
         setNumLikes(prev=>prev)
-        window.location.reload(false)
+        window.location.reload()
     }
 }
