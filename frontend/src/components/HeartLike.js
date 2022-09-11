@@ -8,13 +8,13 @@ import { useContext } from 'react'
 
 const HeartLike =({photo_id, users_liked})=>{
     const {currUser}=useContext(UserContext)
-    const [numLikes, setNumLikes]=useState(0)
-    const [currUserLiked, setCurrUserLiked]=useState(null)
+    const [numLikes, setNumLikes]=useState(users_liked.length)
+    const [currUserLiked, setCurrUserLiked]=useState(currUser && users_liked.find(u=>u.user_id===currUser.id))
     
-    useEffect(()=>{
+   /* useEffect(()=>{
         setNumLikes(users_liked.length)
-        setCurrUserLiked(currUser ? users_liked.find(u=>u.user_id===currUser.id) : null)
-    },[currUser, users_liked ])
+        setCurrUserLiked(currUser && users_liked.find(u=>u.user_id===currUser.id))
+    },[currUser, users_liked ]) */
 
     const toggleHeart=async ()=>{
         const url=currUserLiked? 
@@ -38,6 +38,8 @@ const HeartLike =({photo_id, users_liked})=>{
             
         } catch (error) {
             console.log(error)
+            setCurrUserLiked(null)
+            setNumLikes(prev=>prev)
             window.location.reload(false)
         }
     }

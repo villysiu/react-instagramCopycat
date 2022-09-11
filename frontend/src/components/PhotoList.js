@@ -18,3 +18,4 @@ const PhotoList=({filteredPhotos})=>{
 }
 
 export default memo(PhotoList);
+// export default PhotoList

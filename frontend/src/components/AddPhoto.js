@@ -4,9 +4,9 @@ import Button from 'react-bootstrap/Button'
 import { CanvasContext } from "./Header";
 import { UserContext } from "../App";
 
-const AddPhoto=({ setPhotos })=>{
+const AddPhoto=()=>{
     const toggleRightPanel = useContext(CanvasContext)
-    const {currUser} = useContext(UserContext)
+    const {currUser, setFilteredPhotos} = useContext(UserContext)
     
     const formRef=useRef()
 
@@ -25,7 +25,8 @@ const AddPhoto=({ setPhotos })=>{
             
             const data=await response.json()
         
-            setPhotos((prev)=>[...prev, data])
+             setFilteredPhotos((prev)=>[...prev, data])
+            // addPhotoToList(data)
             toggleRightPanel(false)
         }catch(error){
             console.log("error", error)
@@ -53,7 +54,8 @@ const AddPhoto=({ setPhotos })=>{
 
                 <Form.Group className="mb-3">
                     <Form.Label>Description</Form.Label>
-                    <Form.Control type="text" name="desc" placeholder="Description" />
+                    {/* <Form.Control type="textarea" name="desc" placeholder="Description" /> */}
+                    <Form.Control  as="textarea" name="desc"  placeholder="Description" />
                 </Form.Group>
                 <div className="d-grid gap-2">
                     <Button variant="primary" type="submit">

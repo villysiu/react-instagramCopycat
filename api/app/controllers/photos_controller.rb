@@ -1,6 +1,6 @@
 class PhotosController < ApplicationController
-    before_action :authenticate_user!, :only => [:create]
-   
+    before_action :authenticate_user!, :only => [:create, :update]
+    before_action :find_photo, :only => [:show, :update, :destroy]
     def index
         @photos = Photo.all
         
@@ -16,10 +16,27 @@ class PhotosController < ApplicationController
         # end
     end
 
+    def update
+        
+        @photo.update(desc: params[:photo][:desc])
+        render json: @photo, except: [:created_at, :updated_at]
+
+    end
+    def destroy
+        
+        @photo.destroy
+        render json: nil
+    end
+
     private
 
     def photo_params
+        puts params
         params.require(:photos).permit(:id, :url, :desc, :user_id)
+    end
+    def find_photo
+        puts params
+        @photo=Photo.find(params[:id])
     end
     
 end

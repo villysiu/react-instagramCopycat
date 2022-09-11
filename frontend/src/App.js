@@ -1,4 +1,4 @@
-import { useEffect, useState, createContext } from 'react';
+import { useEffect, useState, createContext, useCallback } from 'react';
 import {fetchUser, fetchPhotos} from './components/actions'
 import './App.css';
 import PhotoList from './components/PhotoList';
@@ -20,11 +20,18 @@ const App=()=>{
     fetchPhotos(setPhotos, setFilteredPhotos)
     
   }, [])
-  
+  // const addPhotoToList = useCallback((photo) => {
+  //   setFilteredPhotos(prev => [...prev, photo]);
+  // }, []);
+
+  // const deletePhotoFromList = useCallback((id) => {
+  //   setFilteredPhotos(prev => prev.filter(p=>p.id!==id));
+  // }, []);
+
   return (
     
     <div className="App">
-      <UserContext.Provider value={{setCurrUser:setCurrUser, currUser: currUser }} >
+      <UserContext.Provider value={{setCurrUser:setCurrUser, currUser: currUser, setFilteredPhotos:setFilteredPhotos }} >
         {loading? 
           
             <div><Spinner animation="border" /></div>

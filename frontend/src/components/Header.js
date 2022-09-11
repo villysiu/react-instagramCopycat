@@ -13,7 +13,7 @@ export const CanvasContext = createContext()
 
 const Header = ({photos, setFilteredPhotos }) =>{
     const [rightpanel, toggleRightPanel]=useState(false)
-    
+    // const [filtered, toggleFiltered]=useState(false)
     const {currUser}=useContext(UserContext)
     
     const handleClick=(e)=>{
@@ -22,8 +22,8 @@ const Header = ({photos, setFilteredPhotos }) =>{
     }
     const filterPhoto=e=>{
       e.preventDefault()
-     
-      setFilteredPhotos(photos.filter(photo=>photo.user_id===currUser.id))
+      // toggleFiltered(!filtered)
+      setFilteredPhotos(photos.filter(photo=>photo.photo_uid===currUser.id))
     }
     const allPhoto=e=>{
       e.preventDefault()
@@ -58,7 +58,7 @@ const Header = ({photos, setFilteredPhotos }) =>{
                     <User /> 
                 </Nav>
             
-                {currUser &&  <div><hr /><AddPhoto setFilteredPhotos={setFilteredPhotos} /></div> }
+                {currUser &&  <div><hr /><AddPhoto /></div> }
                 </CanvasContext.Provider>
               </Offcanvas.Body>
             </Navbar.Offcanvas>

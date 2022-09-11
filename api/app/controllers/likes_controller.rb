@@ -18,11 +18,7 @@ class LikesController < ApplicationController
        
     end
     def destroy
-        # @like=@photo.likes.find(params[:id])
-        
-        puts @like
         @like.destroy
-        # head :no_content
         render json: nil
     end
 
