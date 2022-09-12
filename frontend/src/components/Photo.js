@@ -7,7 +7,6 @@ import EditPhotoModal from "./EditPhotoModal";
 
 const Photo= (photo)=>{
 const {id, url, photo_uid, user, users_liked}=photo
-  console.log(`photo ${id}`)
 
   const {currUser} = useContext(UserContext)
   const [desc, setDesc] = useState(photo.desc);
