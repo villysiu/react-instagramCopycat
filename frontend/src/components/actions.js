@@ -105,7 +105,8 @@ export const deletePhoto=async (id, setShow, setFilteredPhotos)=>{
     }
 }
 
-export const toggleHeart=async (id, setNumLikes, currUserLiked, setCurrUserLiked)=>{
+export const toggleHeart=async (id, setNumLikes, currUserLiked, setCurrUserLiked )=>{
+
     const actionAttributes =currUserLiked? 
         {link: `${url}/photos/${id}/likes/${currUserLiked.liked_id}`, do: "delete"}
         :

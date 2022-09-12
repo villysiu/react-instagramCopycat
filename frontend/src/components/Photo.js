@@ -26,7 +26,7 @@ const {id, url, photo_uid, user, users_liked}=photo
         </Row></Container>
         
         <Card.Img variant="top" src={url} />
-        <HeartLike photo_id={id} users_liked={users_liked} /> 
+        <HeartLike photo_id={id} likeLength={users_liked.length} likeObj={currUser? users_liked.find(u=>u.user_id===currUser.id) : null} /> 
       
         <Card.Text> {desc} </Card.Text>
      

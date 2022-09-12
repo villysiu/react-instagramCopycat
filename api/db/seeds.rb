@@ -1,4 +1,4 @@
-require 'faker'
+
 
 photos=Photo.create([
     {
@@ -34,18 +34,18 @@ photos=Photo.create([
 
 ])
 
-users=User.create([
-    {
-        "email": "mickey@disney.com",
-        "name": "mickey",
-        "password": "mickeymouse"
-    },
-    {
-        "email": "minnie@disney.com",
-        "name": "minnie",
-        "password": "minniemouse"
-    }
-])
+# users=User.create([
+#     {
+#         "email": "mickey@disney.com",
+#         "name": "mickey",
+#         "password": "mickeymouse"
+#     },
+#     {
+#         "email": "minnie@disney.com",
+#         "name": "minnie",
+#         "password": "minniemouse"
+#     }
+# ])
 likes=Like.create([
     { "photo_id":1, "user_id":1 },
     { 'photo_id':2, "user_id":2 },

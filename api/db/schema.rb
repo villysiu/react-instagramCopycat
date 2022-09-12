@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_09_07_172022) do
+ActiveRecord::Schema.define(version: 2022_09_12_054712) do
 
   create_table "jwt_denylist", force: :cascade do |t|
     t.string "jti", null: false
@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(version: 2022_09_07_172022) do
     t.integer "photo_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["photo_id", "user_id"], name: "index_likes_on_photo_id_and_user_id", unique: true
     t.index ["photo_id"], name: "index_likes_on_photo_id"
     t.index ["user_id"], name: "index_likes_on_user_id"
   end
