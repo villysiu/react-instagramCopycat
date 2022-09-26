@@ -23,13 +23,13 @@ return (
             </Offcanvas.Title>
         </Offcanvas.Header>
         <Offcanvas.Body>
-            <CanvasContext.Provider value={toggleRightPanel}>
+           
                 <Nav className="justify-content-end flex-grow-1 pe-3">
-                    <User /> 
+                    <User toggleRightPanel={toggleRightPanel}/> 
                 </Nav>
             
                 {currUser &&  <div><hr /><AddPhoto /></div> }
-            </CanvasContext.Provider>
+            
         </Offcanvas.Body>
     </Navbar.Offcanvas>
 )

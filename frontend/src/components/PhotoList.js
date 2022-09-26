@@ -2,7 +2,9 @@ import { memo } from "react";
 import Photo from "./Photo"
 import { Container, Row } from 'react-bootstrap';
 
+
 const PhotoList=({filteredPhotos})=>{
+   
     return (
         <Container>
             <Row>

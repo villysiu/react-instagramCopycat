@@ -16,8 +16,14 @@ const App=()=>{
   const [filteredPhotos, setFilteredPhotos]=useState([])
 
   useEffect(()=>{
-    if(localStorage.getItem('token'))
+    if(localStorage.getItem('expiredAt')>Date.now)
       fetchUser(setCurrUser, setLoading)
+    else{
+      localStorage.removeItem('token')
+      localStorage.removeItem('expiredAt')
+      setCurrUser(null)
+      setLoading(false)
+    }
   } , [])
 
   useEffect(()=>{
@@ -28,12 +34,12 @@ const App=()=>{
   return (
     
     <div className="App">
-      <UserContext.Provider value={{setCurrUser:setCurrUser, currUser: currUser, photos: photos, setFilteredPhotos:setFilteredPhotos }} >
+      <UserContext.Provider value={{ currUser: currUser, setCurrUser:setCurrUser, photos: photos, setPhotos: setPhotos, setFilteredPhotos:setFilteredPhotos }} >
         {loading? 
           
             <div><Spinner animation="border" /></div>
             :
-            <Header photos={photos} setFilteredPhotos={setFilteredPhotos}/>             
+            <Header />             
         }
         <br /><br /><br />
         <PhotoList filteredPhotos={filteredPhotos} />

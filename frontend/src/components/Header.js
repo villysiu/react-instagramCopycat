@@ -4,9 +4,9 @@ import { useState, useContext } from 'react';
 import {UserContext} from '../App'
 import RightPanelCanvas from './RightPanelCanvas';
 
-const Header = ({photos, setFilteredPhotos }) =>{
+const Header = () =>{
     const [rightPanel, toggleRightPanel]=useState(false)
-    const {currUser}=useContext(UserContext)
+    const {currUser, photos, setFilteredPhotos }=useContext(UserContext)
     
     const handleClick=(e)=>{
         e.preventDefault()

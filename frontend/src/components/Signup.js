@@ -1,36 +1,11 @@
 import { useRef, useContext } from "react"
 import {Form, Button} from 'react-bootstrap'
 import { UserContext } from '../App'
-import { CanvasContext } from "./RightPanelCanvas";
-
-const Signup=({setError, toggleLogin })=>{
+import { signup } from "./actions/userActions"
+const Signup=({setError, toggleLogin, toggleRightPanel })=>{
    
     const {setCurrUser} = useContext(UserContext);
-    const toggleRightPanel = useContext(CanvasContext)
 
-    const signup=async (user)=>{
-        const url="http://localhost:3000/signup"
-        try{
-            const response=await fetch(url, {
-                method: 'post',
-                headers: {
-                    "content-type": 'application/json',
-                    "accept": "application/json"
-                },
-                body: JSON.stringify(user)
-            })
-            if(!response.ok) throw Error
-
-            const {id, name}=await response.json()
-            localStorage.setItem('token', response.headers.get("Authorization"))
-        
-            setCurrUser({id:id,name:name})
-            toggleRightPanel(false)
-        } catch (error){
-            console.log("error", error)
-            setError("Email is already in use.")
-        }
-    }
     const formRef = useRef()
     
     const handleSubmit=e=>{
@@ -39,14 +14,12 @@ const Signup=({setError, toggleLogin })=>{
         const {name, email, password}=Object.fromEntries(formData)
          
          const user={
-            "user":{
-                name: name, email: email, password: password
-            }
+            "user":{ name: name, email: email, password: password }
          }
-         signup(user)
+         signup(user, setCurrUser, setError, toggleRightPanel)
          e.target.reset()
     }
-    const handleClick=e=>{
+    const handleLogin=e=>{
         e.preventDefault();
         toggleLogin(true)
         setError(null)
@@ -60,7 +33,7 @@ const Signup=({setError, toggleLogin })=>{
                     <Form.Control type="email" name="email" placeholder="name@example.com" required />
                 </Form.Group>
                 <Form.Group className="mb-3">
-                    <Form.Label>name</Form.Label>
+                    <Form.Label>Name</Form.Label>
                     <Form.Control type="name" name="name" placeholder="name" required />
                 </Form.Group>
                 <Form.Group className="mb-3">
@@ -74,7 +47,7 @@ const Signup=({setError, toggleLogin })=>{
                 
             </Form>
             <br />
-            <div>Already registered, <a href="#login" onClick={handleClick} >Login</a> here.</div>
+            <div>Already registered, <a href="#login" onClick={handleLogin} >Login</a> here.</div>
         </div>
 
     )

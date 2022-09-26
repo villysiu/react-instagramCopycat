@@ -40,7 +40,7 @@ export const fetchPhotos=async (setPhotos, setFilteredPhotos) =>{
         setFilteredPhotos([])
     } 
 }
-export const addPhoto=async (photo, setFilteredPhotos, toggleRightPanel)=>{
+export const addPhoto=async (photo, setPhotos, setFilteredPhotos)=>{
     
     try {
         const response=await fetch(`${url}/photos`, {
@@ -55,7 +55,8 @@ export const addPhoto=async (photo, setFilteredPhotos, toggleRightPanel)=>{
         
         const data=await response.json()
         setFilteredPhotos(prev=>[...prev, data])
-        toggleRightPanel(false)
+        setPhotos(prev=>[...prev, data])
+        // toggleRightPanel(false)
     }catch(error){
         console.log("Oops! Something wetn wrong. Please try again")
         window.location.reload()
@@ -85,7 +86,7 @@ export const updatePhoto=async (id, descBox, setDesc, setShow )=>{
         window.location.reload()
     }
 }
-export const deletePhoto=async (id, setShow, setFilteredPhotos)=>{
+export const deletePhoto=async (id, setShow, setPhotos, setFilteredPhotos)=>{
     
     try {
         const response=await fetch(`${url}/photos/${id}`, {
@@ -98,6 +99,7 @@ export const deletePhoto=async (id, setShow, setFilteredPhotos)=>{
         })
         if(!response.ok) throw Error
         setFilteredPhotos(prev => prev.filter(p=>p.id!==id));
+        setPhotos(prev => prev.filter(p=>p.id!==id));
         setShow(false)
     } catch (error) {
         // setError("Oops! Something went wrong. Please try again.")

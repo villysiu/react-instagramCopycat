@@ -5,7 +5,7 @@ class Users::SessionsController < Devise::SessionsController
 
   def respond_with(resource, _opts = {})
     @current_user=current_user
-    render json: resource
+    render json: resource, except: [:created_at, :updated_at]
   end
  
 
