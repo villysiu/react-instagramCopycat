@@ -28,7 +28,7 @@ return (
                     <User toggleRightPanel={toggleRightPanel}/> 
                 </Nav>
             
-                {currUser &&  <div><hr /><AddPhoto /></div> }
+                {currUser &&  <div><hr /><AddPhoto toggleRightPanel={toggleRightPanel} /></div> }
             
         </Offcanvas.Body>
     </Navbar.Offcanvas>

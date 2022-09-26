@@ -40,26 +40,29 @@ export const fetchPhotos=async (setPhotos, setFilteredPhotos) =>{
         setFilteredPhotos([])
     } 
 }
-export const addPhoto=async (photo, setPhotos, setFilteredPhotos)=>{
+export const addPhoto=async (photo, setPhotos, setFilteredPhotos, setError, toggleRightPanel)=>{
     
     try {
         const response=await fetch(`${url}/photos`, {
-            method: 'post',
+            method: 'POST',
             headers: {
-                "content-type": 'application/json',
+                // "content-type": 'application/json',
                 "Authorization": localStorage.getItem("token")
             },
-            body: JSON.stringify(photo)
+            body: photo
         })
-        if(!response.ok) throw Error
-        
         const data=await response.json()
+        console.log(response.ok)
+        if(!response.ok) throw data.error
+        
         setFilteredPhotos(prev=>[...prev, data])
         setPhotos(prev=>[...prev, data])
-        // toggleRightPanel(false)
+        setError(null)
+        toggleRightPanel(false)
     }catch(error){
-        console.log("Oops! Something wetn wrong. Please try again")
-        window.location.reload()
+        console.log(error)
+        setError("Oops! Something went wrong. Please try again")
+        // window.location.reload()
     }
 }
 export const updatePhoto=async (id, descBox, setDesc, setShow )=>{

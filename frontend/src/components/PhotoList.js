@@ -4,7 +4,7 @@ import { Container, Row } from 'react-bootstrap';
 
 
 const PhotoList=({filteredPhotos})=>{
-   
+   console.log(filteredPhotos)
     return (
         <Container>
             <Row>
