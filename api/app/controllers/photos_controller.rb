@@ -8,11 +8,18 @@ class PhotosController < ApplicationController
         @photo = Photo.create!(photo_params)
     end
 
-    def update     
-        @photo.update(desc: params[:photo][:desc])
-        render json: @photo, except: [:created_at, :updated_at]
+    def update
+        puts "in UPDATE"
+        puts @photo     
+        puts params
+        @photo.update(desc: params[:desc])
+        puts "after update"
+        puts @photo.desc
+        # render json: @photo, except: [:created_at, :updated_at]
+        render json:nil
     end
     def destroy
+        @photo.url.purge
         @photo.destroy
         render json: nil
     end

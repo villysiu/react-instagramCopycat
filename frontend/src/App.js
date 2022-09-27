@@ -1,10 +1,9 @@
 import { useEffect, useState, createContext } from 'react';
-import {fetchUser, fetchPhotos} from './components/actions'
-
+import {fetchPhotos} from './components/actions/photoActions'
+import {fetchUser } from './components/actions/userActions'
 import './App.css';
 import PhotoList from './components/PhotoList';
 import Header from './components/Header';
-
 import Spinner from 'react-bootstrap/Spinner';
 export const UserContext = createContext();
 

@@ -1,13 +1,12 @@
 import { useState, useContext, useRef } from "react"
 import {Form, Button} from 'react-bootstrap'
-import { CanvasContext } from './RightPanelCanvas'
 import { UserContext } from "../App";
-import { addPhoto } from "./actions";
+import { addPhoto } from "./actions/photoActions";
 
 const AddPhoto=({toggleRightPanel})=>{
     const {currUser, setPhotos, setFilteredPhotos} = useContext(UserContext)
     const [image, setImage]=useState(null)
-    const [desc, setDesc] = useState('')
+    const [descInput, setDescInput] = useState('')
     const [error, setError] =useState(null)
     const inputRef = useRef(null);
     
@@ -15,7 +14,7 @@ const AddPhoto=({toggleRightPanel})=>{
         e.preventDefault()
         const formData=new FormData()
         formData.append('user_id', currUser.id)
-        formData.append('desc', desc)
+        formData.append('desc', descInput)
         formData.append('url', image)
         
         
@@ -26,7 +25,6 @@ const AddPhoto=({toggleRightPanel})=>{
     }
     const handleImageChange=e=>{
         e.preventDefault();
-        console.log(e.target.files)
         if(e.target.files.length===0) 
             return
         else
@@ -36,7 +34,7 @@ const AddPhoto=({toggleRightPanel})=>{
     }
     const handleDescChange=e=>{
         e.preventDefault();
-         setDesc(e.target.value)
+         setDescInput(e.target.value)
          setError(null)
     }
     const handleRemoveImg=(e)=>{

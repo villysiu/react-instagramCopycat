@@ -13,7 +13,7 @@ const {id, url, photo_uid, user, users_liked}=photo
   const [show, setShow] = useState(false);
   
     return (
-      <Col xs={12} md={3}>
+      
       <Card>
         <Container><Row>
           <Col><h5>{user} </h5></Col> 
@@ -24,13 +24,13 @@ const {id, url, photo_uid, user, users_liked}=photo
           </Col>
         </Row></Container>
         
-        <Card.Img variant="top" src={'http://localhost:3000'+url} height="300px" />
+        <Card.Img style={{objectFit: 'cover'}}variant="top" src={'http://localhost:3000'+url} />
         <HeartLike photo_id={id} likeLength={users_liked.length} likeObj={currUser? users_liked.find(u=>u.user_id===currUser.id) : null} /> 
       
         <Card.Text> {desc} </Card.Text>
      
       </Card> 
-      </Col>
+     
     )
 }
 export default memo(Photo)

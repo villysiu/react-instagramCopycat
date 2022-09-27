@@ -1,28 +1,6 @@
 const url="http://localhost:3000"
 
-export const fetchUser=async (setCurrUser, setLoading)=>{
-    setLoading(true)
-    try{
-      const response=await fetch(`${url}/private/getLoginUser`, {
-          headers: {
-              "Content-Type": "application/json",
-              "Authorization": localStorage.getItem("token"),
-          },
-      })
-      if (!response.ok) throw Error
-      const {id, name}=await response.json()
-      
-      setCurrUser({id:id,name:name})
-    } catch(error){
-      console.log("Unauthorized Request. Must be signed in.")
-      setCurrUser(null) 
-      localStorage.removeItem('token')
 
-    } finally {
-      setLoading(false);
-    }  
-    
-}
 
 export const fetchPhotos=async (setPhotos, setFilteredPhotos) =>{
     
@@ -40,7 +18,7 @@ export const fetchPhotos=async (setPhotos, setFilteredPhotos) =>{
         setFilteredPhotos([])
     } 
 }
-export const addPhoto=async (photo, setPhotos, setFilteredPhotos, setError, toggleRightPanel)=>{
+export const addPhoto=async (formData, setPhotos, setFilteredPhotos, setError, toggleRightPanel)=>{
     
     try {
         const response=await fetch(`${url}/photos`, {
@@ -49,10 +27,9 @@ export const addPhoto=async (photo, setPhotos, setFilteredPhotos, setError, togg
                 // "content-type": 'application/json',
                 "Authorization": localStorage.getItem("token")
             },
-            body: photo
+            body: formData
         })
         const data=await response.json()
-        console.log(response.ok)
         if(!response.ok) throw data.error
         
         setFilteredPhotos(prev=>[...prev, data])
@@ -65,26 +42,24 @@ export const addPhoto=async (photo, setPhotos, setFilteredPhotos, setError, togg
         // window.location.reload()
     }
 }
-export const updatePhoto=async (id, descBox, setDesc, setShow )=>{
-    
+export const updatePhoto=async (id, formData, setDesc, setShow )=>{
+    console.log("in updaye")
     try{
         const response=await fetch(`${url}/photos/${id}`, {
             method:'PATCH',
             headers: {
-                'Content-type': "application/json",
-                'accept': "application/json",
+                // 'Content-type': "application/json",
+                // 'accept': "application/json",
                 'Authorization': localStorage.getItem('token'),
             },
-            body: JSON.stringify({
-                desc: descBox
-            })
+            body: formData
         })
-        if(!response.ok) throw Error
         const data=await response.json()
-        setDesc(data.desc)
+        if(!response.ok) throw data.error
+        setDesc(formData.get('desc'))
         setShow(false)
     } catch (error) {
-        // console.log("Oops! Something wetn wrong. Please try again.")
+         console.log(error)
         
         window.location.reload()
     }
@@ -98,14 +73,12 @@ export const deletePhoto=async (id, setShow, setPhotos, setFilteredPhotos)=>{
                 'Content-Type': 'application/json',
                 'Authorization': localStorage.getItem('token')
             },
-        
         })
         if(!response.ok) throw Error
         setFilteredPhotos(prev => prev.filter(p=>p.id!==id));
         setPhotos(prev => prev.filter(p=>p.id!==id));
         setShow(false)
     } catch (error) {
-        // setError("Oops! Something went wrong. Please try again.")
         window.location.reload()
     }
 }
@@ -125,8 +98,8 @@ export const toggleHeart=async (id, setNumLikes, currUserLiked, setCurrUserLiked
                 'Authorization': localStorage.getItem('token'),
             },
         })
-        if(!response.ok) throw Error
         const data=await response.json()
+        if(!response.ok) throw data.error
         
         setCurrUserLiked(data)
         setNumLikes(prev=>currUserLiked? prev-1 : prev+1)

@@ -4,10 +4,9 @@ import { Container, Row } from 'react-bootstrap';
 
 
 const PhotoList=({filteredPhotos})=>{
-   console.log(filteredPhotos)
     return (
         <Container>
-            <Row>
+            <Row sm="1" md="2">
                 {filteredPhotos.map((photo)=><Photo key={photo.id} {...photo} />)}
             </Row>
         </Container>

@@ -1,6 +1,6 @@
 import { Modal, Button, Image, Form } from  'react-bootstrap';
 import { useState, useContext } from 'react';
-import {updatePhoto, deletePhoto } from './actions'
+import {updatePhoto, deletePhoto } from './actions/photoActions'
 import { UserContext } from '../App';
 
 const EditPhotoModal=({show, setShow, photo, setDesc})=>{
@@ -11,7 +11,10 @@ const EditPhotoModal=({show, setShow, photo, setDesc})=>{
     
     const handleSubmit=e=>{
         e.preventDefault()
-        updatePhoto(id, e.target.descBox.value, setDesc, setShow )
+        const formData=new FormData()
+        formData.append("desc", e.target.descBox.value)
+
+        updatePhoto(id, formData, setDesc, setShow )
         e.target.reset()
     }
     const handleDelete=e=>{
@@ -22,7 +25,7 @@ const EditPhotoModal=({show, setShow, photo, setDesc})=>{
     return (
         <Modal show={show} onHide={() => setShow(false)}>
             <Modal.Header closeButton>
-            <Modal.Title><Image src={url} width="100" /></Modal.Title>
+            <Modal.Title><Image src={'http://localhost:3000'+url} width="100" /></Modal.Title>
             </Modal.Header>
             {/* <div class="text-danger">{error}</div> */}
             <Form onSubmit={handleSubmit} >

@@ -1,7 +1,8 @@
+const url="http://localhost:3000"
 export const login=async (userInfo, setCurrUser, setError, toggleRightPanel)=>{
-    const url="http://localhost:3000/login"
+    
     try{
-        const response=await fetch(url, {
+        const response=await fetch(`${url}/login`, {
             method: "post",
             headers: {
                 'content-type': 'application/json',
@@ -23,9 +24,9 @@ export const login=async (userInfo, setCurrUser, setError, toggleRightPanel)=>{
     }
 }
 export const signup=async (userInfo, setCurrUser, setError, toggleRightPanel)=>{
-    const url="http://localhost:3000/signup"
+    
     try{
-        const response=await fetch(url, {
+        const response=await fetch(`${url}/signup`, {
             method: 'post',
             headers: {
                 "content-type": 'application/json',
@@ -46,9 +47,8 @@ export const signup=async (userInfo, setCurrUser, setError, toggleRightPanel)=>{
 }
 
 export const logout=async (setCurrUser, setError, toggleRightPanel)=>{
-    const url="http://localhost:3000/logout"
     try{
-        const response=await fetch(url, {
+        const response=await fetch(`${url}/logout`, {
             method: 'delete',
             headers: {
                 'Content-Type': 'application/json',
@@ -66,4 +66,28 @@ export const logout=async (setCurrUser, setError, toggleRightPanel)=>{
     }catch(error){
         setError("Logout failed")
     }
+}
+export const fetchUser=async (setCurrUser, setLoading)=>{
+    setLoading(true)
+    try{
+      const response=await fetch(`${url}/private/getLoginUser`, {
+          headers: {
+              "Content-Type": "application/json",
+              "Authorization": localStorage.getItem("token"),
+          },
+      })
+      if (!response.ok) throw Error
+      const {id, name}=await response.json()
+      
+      setCurrUser({id:id,name:name})
+    } catch(error){
+      console.log(error)
+      setCurrUser(null) 
+      localStorage.removeItem('token')
+      localStorage.removeItem('expiredAt')
+
+    } finally {
+      setLoading(false);
+    }  
+    
 }

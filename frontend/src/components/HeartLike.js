@@ -2,7 +2,7 @@ import { useState, useEffect,useContext } from 'react'
 import { Heart, HeartFill } from 'react-bootstrap-icons'
 import {OverlayTrigger, Tooltip} from 'react-bootstrap';
 import { UserContext } from '../App'
-import { toggleHeart } from './actions';
+import { toggleHeart } from './actions/photoActions';
 
 const HeartLike =({photo_id, likeLength, likeObj})=>{
     const {currUser}=useContext(UserContext)
