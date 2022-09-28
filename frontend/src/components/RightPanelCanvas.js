@@ -7,10 +7,12 @@ import { UserContext } from "../App";
 export const CanvasContext = createContext()
 
 const RightPanelCanvas = ({rightPanel, toggleRightPanel, handleClick})=>{
-    const {currUser, setFilteredPhotos, photos}=useContext(UserContext)
+    const {currUser, setUserPhotos}=useContext(UserContext)
+    
     const filterPhoto=e=>{
         e.preventDefault()
-        setFilteredPhotos(photos.filter(photo=>photo.photo_uid===currUser.id))
+        
+        setUserPhotos(true)
     }
      
 return (

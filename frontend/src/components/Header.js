@@ -1,12 +1,12 @@
 import {Container, Navbar, Button } from 'react-bootstrap';
-import { useState, useContext } from 'react';
+import { React, memo, useState, useContext } from 'react';
 
 import {UserContext} from '../App'
 import RightPanelCanvas from './RightPanelCanvas';
 
 const Header = () =>{
     const [rightPanel, toggleRightPanel]=useState(false)
-    const {currUser, photos, setFilteredPhotos }=useContext(UserContext)
+    const {currUser, setUserPhotos}=useContext(UserContext)
     
     const handleClick=(e)=>{
         e.preventDefault()
@@ -14,13 +14,13 @@ const Header = () =>{
     }
     const allPhoto=e=>{
       e.preventDefault()
-      setFilteredPhotos(photos)
+      setUserPhotos(false)
     }
     
     return (
-        <Navbar key="false" bg="light" expand="false" fixed="top" className="mb-3">
+        <Navbar key="false" bg="light" expand="false" fixed="top" className="mb-3" style={{ background: "linear-gradient(rgba(255,255,255,.1), rgba(255,255,255,.1))" }}>
           <Container fluid>
-            <Navbar.Brand href="#" onClick={allPhoto} >Instagram Copycat</Navbar.Brand>
+            <Navbar.Brand href="#" onClick={allPhoto} className="font-face-bb">Instagram Copycat</Navbar.Brand>
 
               {currUser? 
                 <Button variant="primary" onClick={handleClick} > {currUser.name[0]} </Button> 
@@ -36,4 +36,4 @@ const Header = () =>{
     );
     
 }
-export default Header
+export default memo(Header)

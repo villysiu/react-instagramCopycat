@@ -1,4 +1,4 @@
-import { memo, useContext, useState } from "react";
+import { useContext, useState } from "react";
 import {Container, Col, Row, Card} from 'react-bootstrap';
 import { UserContext } from "../App";
 import {ThreeDots} from 'react-bootstrap-icons'
@@ -6,7 +6,8 @@ import HeartLike from "./HeartLike";
 import EditPhotoModal from "./EditPhotoModal";
 
 const Photo= (photo)=>{
-const {id, url, photo_uid, user, users_liked}=photo
+  
+  const {id, url, photo_uid, user, users_liked}=photo
 
   const {currUser} = useContext(UserContext)
   const [desc, setDesc] = useState(photo.desc);
@@ -14,8 +15,8 @@ const {id, url, photo_uid, user, users_liked}=photo
   
     return (
       
-      <Card>
-        <Container><Row>
+      <Card key={id} style={{ background: "linear-gradient(rgba(255,255,255,.7), rgba(255,255,255,.7))" }}>
+        <Container ><Row>
           <Col><h5>{user} </h5></Col> 
           <Col align="right">
             {currUser && currUser.id===photo_uid && 
@@ -24,7 +25,7 @@ const {id, url, photo_uid, user, users_liked}=photo
           </Col>
         </Row></Container>
         
-        <Card.Img style={{objectFit: 'cover'}}variant="top" src={'http://localhost:3000'+url} />
+        <Card.Img style={{size: 'cover'}}variant="top" src={'http://localhost:3000'+url} />
         <HeartLike photo_id={id} likeLength={users_liked.length} likeObj={currUser? users_liked.find(u=>u.user_id===currUser.id) : null} /> 
       
         <Card.Text> {desc} </Card.Text>
@@ -33,4 +34,4 @@ const {id, url, photo_uid, user, users_liked}=photo
      
     )
 }
-export default memo(Photo)
+export default Photo

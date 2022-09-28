@@ -11,3 +11,10 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+@font-face {
+  font-family: "Bakerie";
+  src: local("Bakerie"),
+   url("./font/bakerie.otf") format("opentype");
+  font-weight: bold;
+  }
+

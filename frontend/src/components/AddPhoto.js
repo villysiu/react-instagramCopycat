@@ -4,7 +4,7 @@ import { UserContext } from "../App";
 import { addPhoto } from "./actions/photoActions";
 
 const AddPhoto=({toggleRightPanel})=>{
-    const {currUser, setPhotos, setFilteredPhotos} = useContext(UserContext)
+    const {currUser, setPhotos} = useContext(UserContext)
     const [image, setImage]=useState(null)
     const [descInput, setDescInput] = useState('')
     const [error, setError] =useState(null)
@@ -18,7 +18,7 @@ const AddPhoto=({toggleRightPanel})=>{
         formData.append('url', image)
         
         
-        addPhoto(formData, setPhotos, setFilteredPhotos, setError, toggleRightPanel  )
+        addPhoto(formData, setPhotos, setError, toggleRightPanel)
         e.target.reset()
         setImage(null)
         

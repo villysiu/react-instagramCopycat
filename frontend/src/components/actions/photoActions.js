@@ -2,7 +2,7 @@ const url="http://localhost:3000"
 
 
 
-export const fetchPhotos=async (setPhotos, setFilteredPhotos) =>{
+export const fetchPhotos=async (setPhotos) =>{
     
     try{
         const response=await fetch(`${url}/photos.json`)
@@ -11,14 +11,12 @@ export const fetchPhotos=async (setPhotos, setFilteredPhotos) =>{
         const data=await response.json()
 
         setPhotos(data)
-        setFilteredPhotos(data)
     } catch(error){
         console.log(error)
         setPhotos([])
-        setFilteredPhotos([])
     } 
 }
-export const addPhoto=async (formData, setPhotos, setFilteredPhotos, setError, toggleRightPanel)=>{
+export const addPhoto=async (formData, setPhotos, setError, toggleRightPanel)=>{
     
     try {
         const response=await fetch(`${url}/photos`, {
@@ -32,7 +30,6 @@ export const addPhoto=async (formData, setPhotos, setFilteredPhotos, setError, t
         const data=await response.json()
         if(!response.ok) throw data.error
         
-        setFilteredPhotos(prev=>[...prev, data])
         setPhotos(prev=>[...prev, data])
         setError(null)
         toggleRightPanel(false)
@@ -64,7 +61,7 @@ export const updatePhoto=async (id, formData, setDesc, setShow )=>{
         window.location.reload()
     }
 }
-export const deletePhoto=async (id, setShow, setPhotos, setFilteredPhotos)=>{
+export const deletePhoto=async (id, setShow, setPhotos)=>{
     
     try {
         const response=await fetch(`${url}/photos/${id}`, {
@@ -75,7 +72,7 @@ export const deletePhoto=async (id, setShow, setPhotos, setFilteredPhotos)=>{
             },
         })
         if(!response.ok) throw Error
-        setFilteredPhotos(prev => prev.filter(p=>p.id!==id));
+    
         setPhotos(prev => prev.filter(p=>p.id!==id));
         setShow(false)
     } catch (error) {

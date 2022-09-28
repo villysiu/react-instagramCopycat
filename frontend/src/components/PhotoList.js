@@ -1,16 +1,17 @@
-import { memo } from "react";
+// import { memo } from "react";
 import Photo from "./Photo"
 import { Container, Row } from 'react-bootstrap';
 
 
-const PhotoList=({filteredPhotos})=>{
+const PhotoList=({photos})=>{
+
     return (
         <Container>
             <Row sm="1" md="2">
-                {filteredPhotos.map((photo)=><Photo key={photo.id} {...photo} />)}
+                {photos.map((photo)=><Photo key={photo.id} {...photo} />)}
             </Row>
         </Container>
     )
 }
 
-export default memo(PhotoList);
+export default PhotoList
