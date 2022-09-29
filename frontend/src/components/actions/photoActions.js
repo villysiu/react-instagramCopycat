@@ -30,7 +30,7 @@ export const addPhoto=async (formData, setPhotos, setError, toggleRightPanel)=>{
         const data=await response.json()
         if(!response.ok) throw data.error
         
-        setPhotos(prev=>[...prev, data])
+        setPhotos(prev=>[data, ...prev])
         setError(null)
         toggleRightPanel(false)
     }catch(error){

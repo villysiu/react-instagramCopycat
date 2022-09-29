@@ -2,20 +2,14 @@ class PhotosController < ApplicationController
     before_action :authenticate_user!, :only => [:create, :update]
     before_action :find_photo, :only => [:show, :update, :destroy]
     def index
-        @photos = Photo.all
+        @photos = Photo.all.order("created_at DESC")
     end
     def create
         @photo = Photo.create!(photo_params)
     end
 
     def update
-        puts "in UPDATE"
-        puts @photo     
-        puts params
         @photo.update(desc: params[:desc])
-        puts "after update"
-        puts @photo.desc
-        # render json: @photo, except: [:created_at, :updated_at]
         render json:nil
     end
     def destroy
