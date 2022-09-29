@@ -1,7 +1,7 @@
 # Instagram Copycat
 This is a simplified version of photo sharing application. Registered users can upload photos, view and 'like' photos by other users. 
 
-![](https://github.com/villysiu/react-instagramCopycat/blob/master/instagram-copycat.gif)
+![](https://github.com/villysiu/react-instagramCopycat/blob/master/instagram-copycat2.gif)
 
 ## Tech Stack
 The backend was created with Rails API and has been fully set up with user authentication, using the devise gem and JWT. The frontend was done with React, JavaScript, and HTML, with the design features being mostly done with React-Bootstrap.
