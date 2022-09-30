@@ -3,6 +3,9 @@ This is a simplified version of photo sharing application. Registered users can 
 
 ![](https://github.com/villysiu/react-instagramCopycat/blob/master/instagram-copycat2.gif)
 
+https://youtu.be/JE5EsAGk3NU
+[![Video demo]](https://youtu.be/JE5EsAGk3NU)
+
 ## Tech Stack
 The backend was created with Rails API and has been fully set up with user authentication, using the devise gem and JWT. The frontend was done with React, JavaScript, and HTML, with the design features being mostly done with React-Bootstrap.
 

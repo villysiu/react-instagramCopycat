@@ -5,7 +5,7 @@ import { UserContext } from '../App';
 
 const EditPhotoModal=({show, setShow, photo, setDesc})=>{
     const {id, url}=photo
-    const {setPhotos, setFilteredPhotos}=useContext(UserContext)
+    const {setPhotos}=useContext(UserContext)
     const [descBox, setDescBox]=useState( photo.desc )
     // const [error, setError]=useState( null)
     
@@ -19,7 +19,7 @@ const EditPhotoModal=({show, setShow, photo, setDesc})=>{
     }
     const handleDelete=e=>{
         e.preventDefault()
-        deletePhoto(id, setShow, setPhotos, setFilteredPhotos)
+        deletePhoto(id, setShow, setPhotos)
     
     }
     return (
