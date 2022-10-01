@@ -1,26 +1,22 @@
 import { Modal, Button, Image, Form } from  'react-bootstrap';
-import { useState, useContext } from 'react';
+import { useState } from 'react';
 import {updatePhoto, deletePhoto } from './actions/photoActions'
-import { UserContext } from '../App';
 
-const EditPhotoModal=({show, setShow, photo, setDesc})=>{
+
+const EditPhotoModal=({show, setShow, photo, setDesc, setPhotos})=>{
     const {id, url}=photo
-    const {setPhotos}=useContext(UserContext)
     const [descBox, setDescBox]=useState( photo.desc )
-    // const [error, setError]=useState( null)
-    
+
     const handleSubmit=e=>{
         e.preventDefault()
         const formData=new FormData()
         formData.append("desc", e.target.descBox.value)
-
         updatePhoto(id, formData, setDesc, setShow )
         e.target.reset()
     }
     const handleDelete=e=>{
         e.preventDefault()
         deletePhoto(id, setShow, setPhotos)
-    
     }
     return (
         <Modal show={show} onHide={() => setShow(false)}>

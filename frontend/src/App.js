@@ -7,18 +7,18 @@ import PhotoList from './components/PhotoList';
 import Header from './components/Header';
 import Spinner from 'react-bootstrap/Spinner';
 
-export const UserContext = createContext();
-
+export const AppContext = createContext();
 const App=()=>{
   const [currUser, setCurrUser]=useState(null);
   const [loading, setLoading]=useState(false)
+  const [pLoading, setPLoading]=useState(false)
   const [photos, setPhotos]=useState([])
-  const [userPhotos, setUserPhotos]=useState(false)
+  const [filtered, setFiltered]=useState(false)
 
   useEffect(()=>{
-    if(localStorage.getItem('expiredAt')>Date.now)
+    if(localStorage.getItem('expiredAt')>Date.now){
       fetchUser(setCurrUser, setLoading)
-    else{
+    }else{
       localStorage.removeItem('token')
       localStorage.removeItem('expiredAt')
       setCurrUser(null)
@@ -27,24 +27,25 @@ const App=()=>{
   } , [])
 
   useEffect(()=>{
-    fetchPhotos(setPhotos)
+    fetchPhotos(setPhotos, setPLoading)
   }, [])
-
 
   return (
     
     <div className="App" style={{ backgroundImage: `url(${bubble_bd})`, backgroundSize: 'cover'}}>
-      <UserContext.Provider value={{ currUser: currUser, setCurrUser:setCurrUser, photos: photos, setPhotos: setPhotos, setUserPhotos:setUserPhotos }} >
-        {loading? 
+        {loading || pLoading? 
           
             <div><Spinner animation="border" /></div>
             :
-            <Header />
+            <div>
+              <AppContext.Provider value={{ currUser: currUser, setCurrUser:setCurrUser }} >
+                <Header setPhotos={setPhotos} setFiltered={setFiltered}/>
+              </AppContext.Provider>
+
+              <br /><br /><br />
+              <PhotoList currUser={currUser} setPhotos={setPhotos} photos={filtered? photos.filter(photo=>photo.photo_uid===currUser.id) : photos} /> 
+            </div>
         }
-        <br /><br /><br />
-        { userPhotos ? 
-        <PhotoList photos={photos.filter(photo=>photo.photo_uid===currUser.id)} /> : <PhotoList photos={photos} /> }
-      </UserContext.Provider>
     </div> 
     
   );

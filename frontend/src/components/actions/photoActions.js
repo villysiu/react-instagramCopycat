@@ -2,8 +2,8 @@ const url="http://localhost:3000"
 
 
 
-export const fetchPhotos=async (setPhotos) =>{
-    
+export const fetchPhotos=async (setPhotos, setPLoading) =>{
+    setPLoading(true)
     try{
         const response=await fetch(`${url}/photos.json`)
         if(!response.ok) throw Error
@@ -14,7 +14,10 @@ export const fetchPhotos=async (setPhotos) =>{
     } catch(error){
         console.log(error)
         setPhotos([])
-    } 
+    }
+    finally{
+        setPLoading(false)
+    }
 }
 export const addPhoto=async (formData, setPhotos, setError, toggleRightPanel)=>{
     
@@ -22,7 +25,6 @@ export const addPhoto=async (formData, setPhotos, setError, toggleRightPanel)=>{
         const response=await fetch(`${url}/photos`, {
             method: 'POST',
             headers: {
-                // "content-type": 'application/json',
                 "Authorization": localStorage.getItem("token")
             },
             body: formData
@@ -36,7 +38,6 @@ export const addPhoto=async (formData, setPhotos, setError, toggleRightPanel)=>{
     }catch(error){
         console.log(error)
         setError("Oops! Something went wrong. Please try again")
-        // window.location.reload()
     }
 }
 export const updatePhoto=async (id, formData, setDesc, setShow )=>{
@@ -67,16 +68,17 @@ export const deletePhoto=async (id, setShow, setPhotos)=>{
         const response=await fetch(`${url}/photos/${id}`, {
             method: 'delete',
             headers: {
-                'Content-Type': 'application/json',
+                // 'Content-Type': 'application/json',
                 'Authorization': localStorage.getItem('token')
             },
         })
-        if(!response.ok) throw Error
-    
+        const data=await response.json()
+        if(!response.ok) throw data.error
+
         setPhotos(prev => prev.filter(p=>p.id!==id));
         setShow(false)
     } catch (error) {
-        window.location.reload()
+        console.log(error)
     }
 }
 

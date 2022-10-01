@@ -1,10 +1,10 @@
 import { useRef, useContext } from "react"
 import {Form, Button} from 'react-bootstrap'
-import { UserContext } from '../App'
+import { AppContext } from '../App'
 import { signup } from "./actions/userActions"
 const Signup=({setError, toggleLogin, toggleRightPanel })=>{
    
-    const {setCurrUser} = useContext(UserContext);
+    const {setCurrUser} = useContext(AppContext);
 
     const formRef = useRef()
     

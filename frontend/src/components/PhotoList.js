@@ -1,14 +1,13 @@
-// import { memo } from "react";
 import Photo from "./Photo"
 import { Container, Row } from 'react-bootstrap';
 
-
-const PhotoList=({photos})=>{
-
+const PhotoList=({photos, currUser, setPhotos})=>{
+    console.log("photoList")
+    console.log(photos)
     return (
         <Container>
-            <Row sm="1" md="2">
-                {photos.map((photo)=><Photo key={photo.id} {...photo} />)}
+            <Row>
+                {photos.map((photo)=><Photo key={photo.id} photo={photo} currUser={currUser} setPhotos={setPhotos} />)}
             </Row>
         </Container>
     )
