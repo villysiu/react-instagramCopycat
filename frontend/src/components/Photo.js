@@ -12,7 +12,7 @@ const Photo= ({photo, currUser, setPhotos})=>{
   const [show, setShow] = useState(false);
   
     return (
-      <Card style={{ background: "linear-gradient(rgba(255,255,255,.7), rgba(255,255,255,.7))" }}>
+      <Card style={{ background: "linear-gradient(rgba(255,255,255,.5), rgba(255,255,255,.5))" }}>
         <Container ><Row>
           <Col><h5>{user} </h5></Col> 
           <Col align="right">
