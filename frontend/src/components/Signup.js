@@ -11,13 +11,11 @@ const Signup=({setError, toggleLogin, toggleRightPanel })=>{
     const handleSubmit=e=>{
         e.preventDefault()
         const formData=new FormData(formRef.current)
-        const {name, email, password}=Object.fromEntries(formData)
-         
-         const user={
-            "user":{ name: name, email: email, password: password }
-         }
-         signup(user, setCurrUser, setError, toggleRightPanel)
-         e.target.reset()
+        const user={
+            "user": Object.fromEntries(formData)
+        }
+        signup(user, setCurrUser, setError, toggleRightPanel)
+        e.target.reset()
     }
     const handleLogin=e=>{
         e.preventDefault();

@@ -10,7 +10,6 @@ const Photo= ({photo, currUser, setPhotos})=>{
   const {id, url, photo_uid, user, users_liked}=photo
   const [desc, setDesc] = useState(photo.desc);
   const [show, setShow] = useState(false);
-  
     return (
       <Card style={{ background: "linear-gradient(rgba(255,255,255,.5), rgba(255,255,255,.5))" }}>
         <Container ><Row>

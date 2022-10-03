@@ -1,6 +1,5 @@
 import { useRef, useContext } from "react" 
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button'
+import {Form, Button} from 'react-bootstrap'
 import { AppContext } from '../App'
 import { login } from "./actions/userActions";
  const Login = ({ setError, toggleLogin,toggleRightPanel }) =>{
@@ -11,9 +10,8 @@ import { login } from "./actions/userActions";
     const handleSubmit=e=>{
         e.preventDefault()
         const formData=new FormData(formRef.current)
-        const {email, password}=Object.fromEntries(formData)
-        
-        login({user: { email: email, password: password }}, setCurrUser, setError, toggleRightPanel)
+
+        login({user: Object.fromEntries(formData)}, setCurrUser, setError, toggleRightPanel)
         e.target.reset() 
     }
     const handleSignup=e=>{

@@ -24,7 +24,7 @@ const AddPhoto=({toggleRightPanel, setPhotos })=>{
     const handleImageChange=e=>{
         e.preventDefault();
         if(e.target.files.length===0) 
-            return
+            return;
         
         setError(null)
         setPreview(e.target.files[0])

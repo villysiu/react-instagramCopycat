@@ -1,9 +1,8 @@
 class LikesController < ApplicationController
-    # before_action :authenticate_user!, :only => [:create, :destroy]
+
     before_action :find_photo
     before_action :find_like, :only => [:destroy]
     def index
-        # @likes=Like.all
         render json: @photo.likes, except: [:created_at, :updated_at], include: [user: { only: [:name] }]
     end
     def create
