@@ -11,6 +11,7 @@ json.array! @photos do |photo|
     json.users_liked photo.likes do |item|
         json.liked_id item.id
         json.user_id item.user_id 
+        json.user_name item.user.name
     end
         
 end

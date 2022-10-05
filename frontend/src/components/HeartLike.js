@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react'
 import { Heart, HeartFill } from 'react-bootstrap-icons'
-import { toggleHeart } from './actions/photoActions';
+import { like, unlike } from './actions/photoActions';
 
 const HeartLike =(props)=>{
-    const { photo_id, setCount, likeObj } = props
+    const { photo_id, setCount, setUsersLiked, likeObj } = props
     const [currUserLiked, setCurrUserLiked] = useState(null)
     const url=`http://localhost:3000/photos/${photo_id}/likes`
 
@@ -12,9 +12,9 @@ const HeartLike =(props)=>{
     const handleClick=e=>{
         e.preventDefault()
         currUserLiked ? 
-        toggleHeart(`${url}/${currUserLiked.liked_id}`, "delete", setCount, setCurrUserLiked)
+        unlike(`${url}/${currUserLiked.liked_id}`, currUserLiked.liked_id, setCount, setUsersLiked, setCurrUserLiked)
         :
-        toggleHeart(url, "post", setCount, setCurrUserLiked)
+        like(url, setCount, setUsersLiked, setCurrUserLiked)
     }
 
     return (

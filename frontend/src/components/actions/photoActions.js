@@ -6,10 +6,8 @@ export const fetchPhotos=async (setPhotos, setPLoading) =>{
     setPLoading(true)
     try{
         const response=await fetch(`${url}/photos.json`)
-        if(!response.ok) throw Error
-
         const data=await response.json()
-
+        if(!response.ok) throw data.error
         setPhotos(data)
     } catch(error){
         console.log(error)
@@ -41,7 +39,6 @@ export const addPhoto=async (formData, setPhotos, setError, toggleRightPanel)=>{
     }
 }
 export const updatePhoto=async (id, formData, setDesc, setShow )=>{
-    console.log("in updaye")
     try{
         const response=await fetch(`${url}/photos/${id}`, {
             method:'PATCH',
@@ -56,7 +53,6 @@ export const updatePhoto=async (id, formData, setDesc, setShow )=>{
         setShow(false)
     } catch (error) {
          console.log(error)
-        
         window.location.reload()
     }
 }
@@ -80,11 +76,11 @@ export const deletePhoto=async (id, setShow, setPhotos)=>{
     }
 }
 
-export const toggleHeart=async (url, method, setCount, setCurrUserLiked )=>{
-
+export const unlike=async (url, likeId, setCount, setUsersLiked, setCurrUserLiked )=>{
+    
     try {
         const response = await fetch(url, {
-            method: method,
+            method: "delete",
             headers: {
                 'Content-type': "application/json",
                 'Authorization': localStorage.getItem('token'),
@@ -92,13 +88,35 @@ export const toggleHeart=async (url, method, setCount, setCurrUserLiked )=>{
         })
         const data=await response.json()
         if(!response.ok) throw data.error
-        
-        setCurrUserLiked(data)
-        setCount(prev=>data ? prev+1 : prev-1)
+        console.log(data)
+        setCurrUserLiked(null)
+        setCount(prev=>prev-1)
+        setUsersLiked(prev=>prev.filter(obj=>obj.id!==likeId))
         
     } catch (error) {
         setCurrUserLiked(null)
-        // setCount(prev=>prev)
-        window.location.reload()
+        
+        // window.location.reload()
+    }
+}
+export const like=async (url, setCount, setUsersLiked, setCurrUserLiked )=>{
+    
+    try {
+        const response = await fetch(url, {
+            method: "post",
+            headers: {
+                'Content-type': "application/json",
+                'Authorization': localStorage.getItem('token'),
+            },
+        })
+        const data=await response.json()
+        if(!response.ok) throw data.error
+        console.log(data)
+        setCurrUserLiked(data)
+        setCount(prev=>prev+1)
+        setUsersLiked(prev=>[...prev, data])
+        
+    } catch (error) {
+        setCurrUserLiked(null)
     }
 }
