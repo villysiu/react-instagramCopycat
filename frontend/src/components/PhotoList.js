@@ -4,6 +4,7 @@ import { Container, Row } from 'react-bootstrap';
 const PhotoList=({photos, currUser, setPhotos})=>{
     console.log("photoList")
     console.log(photos)
+    console.log(currUser)
     return (
         <Container>
             <Row>

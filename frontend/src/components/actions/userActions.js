@@ -15,8 +15,9 @@ export const login=async (userInfo, setCurrUser, setError, toggleRightPanel)=>{
 
         localStorage.setItem("token", response.headers.get("Authorization"))
         localStorage.setItem('currUser', JSON.stringify(data))
-        localStorage.setItem('expiredAt', Date.now+30*60*1000)
+        localStorage.setItem('exp', Date.now()+30*60*1000)
         // {id: 1, email: 'mickey@disney.com', name: 'mickey'}
+        
         setCurrUser(data)
         toggleRightPanel(false)
 
@@ -40,7 +41,7 @@ export const signup=async (userInfo, setCurrUser, setError, toggleRightPanel)=>{
 
         localStorage.setItem('token', response.headers.get("Authorization"))
         localStorage.setItem('currUser', JSON.stringify(data))
-        localStorage.setItem('expiredAt', Date.now+30*60*1000)
+        localStorage.setItem('exp', Date.now()+30*60*1000)
         setCurrUser(data)
         toggleRightPanel(false)
     } catch (error){

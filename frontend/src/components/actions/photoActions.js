@@ -46,8 +46,6 @@ export const updatePhoto=async (id, formData, setDesc, setShow )=>{
         const response=await fetch(`${url}/photos/${id}`, {
             method:'PATCH',
             headers: {
-                // 'Content-type': "application/json",
-                // 'accept': "application/json",
                 'Authorization': localStorage.getItem('token'),
             },
             body: formData
@@ -82,16 +80,11 @@ export const deletePhoto=async (id, setShow, setPhotos)=>{
     }
 }
 
-export const toggleHeart=async (id, setNumLikes, currUserLiked, setCurrUserLiked )=>{
-
-    const actionAttributes =currUserLiked? 
-        {link: `${url}/photos/${id}/likes/${currUserLiked.liked_id}`, do: "delete"}
-        :
-        {link: `${url}/photos/${id}/likes`, do: "post"}
+export const toggleHeart=async (url, method, setCount, setCurrUserLiked )=>{
 
     try {
-        const response = await fetch(actionAttributes.link, {
-            method: actionAttributes.do,
+        const response = await fetch(url, {
+            method: method,
             headers: {
                 'Content-type': "application/json",
                 'Authorization': localStorage.getItem('token'),
@@ -101,11 +94,11 @@ export const toggleHeart=async (id, setNumLikes, currUserLiked, setCurrUserLiked
         if(!response.ok) throw data.error
         
         setCurrUserLiked(data)
-        setNumLikes(prev=>currUserLiked? prev-1 : prev+1)
+        setCount(prev=>data ? prev+1 : prev-1)
         
     } catch (error) {
         setCurrUserLiked(null)
-        setNumLikes(prev=>prev)
+        // setCount(prev=>prev)
         window.location.reload()
     }
 }

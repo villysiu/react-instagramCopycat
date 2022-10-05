@@ -15,12 +15,11 @@ const App=()=>{
   const [filtered, setFiltered]=useState(false)
 
   useEffect(()=>{
-    if(localStorage.getItem('expiredAt')>Date.now){
+    if(localStorage.getItem('exp')>Date.now()){
       setCurrUser(JSON.parse(localStorage.getItem('currUser')))
     }else{
       localStorage.clear()
       setCurrUser(null)
-      
     }
     setLoading(false)
   } , [])
