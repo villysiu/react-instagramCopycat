@@ -18,3 +18,8 @@ code {
   font-weight: bold;
   }
 
+  .heart:hover {
+    transform: scale(1.3);
+    color: purple
+  }
+

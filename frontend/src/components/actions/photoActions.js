@@ -91,7 +91,7 @@ export const unlike=async (url, likeId, setCount, setUsersLiked, setCurrUserLike
         console.log(data)
         setCurrUserLiked(null)
         setCount(prev=>prev-1)
-        setUsersLiked(prev=>prev.filter(obj=>obj.id!==likeId))
+        setUsersLiked(prev=>prev.filter(obj=>obj.liked_id!==data))
         
     } catch (error) {
         setCurrUserLiked(null)

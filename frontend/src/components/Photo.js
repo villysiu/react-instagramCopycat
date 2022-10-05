@@ -15,7 +15,7 @@ const Photo= ({photo, currUser, setPhotos})=>{
   const [show, setShow] = useState(false);
   const [count, setCount] = useState(users_liked.length)
   const [usersLiked, setUsersLiked]=useState(users_liked)
-  const renderTooltip = props => <Tooltip {...props}>Please login or signup.</Tooltip>
+  
     return (
       <Card style={{ background: "linear-gradient(rgba(255,255,255,.5), rgba(255,255,255,.5))" }}>
         <Container ><Row>
@@ -29,11 +29,13 @@ const Photo= ({photo, currUser, setPhotos})=>{
         </Row></Container>
         
         <Card.Img style={{size: 'cover'}} variant="top" src={'http://localhost:3000'+url} />
+        <Container ><Row>
+          <Col>
         {currUser? 
           <HeartLike photo_id={id} setCount={setCount} setUsersLiked={setUsersLiked} likeObj={usersLiked.find(u=>u.user_id===currUser.id)} /> 
          :
-          <OverlayTrigger placement="top" overlay={renderTooltip}>
-              <Heart color="red" />
+          <OverlayTrigger placement="top" overlay={ <Tooltip>Please login or signup.</Tooltip>}>
+              <Heart className='heart' color="black"/>
           </OverlayTrigger>
         }
 
@@ -42,13 +44,12 @@ const Photo= ({photo, currUser, setPhotos})=>{
           {
             usersLiked.length===0 ?
             <div>No like yet.</div>:
-            usersLiked.map(like=><div>{like.user_name}</div>)}
+            usersLiked.map(like=><div key={like.liked_id}>{like.user_name}</div>)}
         </Tooltip>}>  
-          
-        <Button style={{width : '80px'}} size="sm" variant="light">{count} likes </Button>
-            
+        
+            <span style={{ marginLeft: '.5rem' }}> {count} likes </span>
         </OverlayTrigger>
-
+        </Col></Row></Container>
         <Card.Text> {desc} </Card.Text>
      
       </Card> 

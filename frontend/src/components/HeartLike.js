@@ -18,9 +18,10 @@ const HeartLike =(props)=>{
     }
 
     return (
-        <div  onClick={handleClick}>
-            { currUserLiked ? <HeartFill color="red" /> : <Heart color="red" /> } 
-        </div>
+        <span onClick={handleClick} >
+            { currUserLiked ? <HeartFill color="red" /> : 
+            <Heart className='heart' color="black" /> } 
+        </span>
     )
 }
            
