@@ -3,7 +3,7 @@ import Login from './Login'
 import Logout from './Logout'
 import { useState, useContext } from "react";
 import { AppContext } from "../App";
-const User = ({toggleRightPanel, setFiltered}) => {
+const User = ({toggleRightPanel}) => {
     const {currUser}=useContext(AppContext)
     const [error, setError]=useState(null)
     const [login, toggleLogin] = useState(true)
@@ -12,14 +12,14 @@ const User = ({toggleRightPanel, setFiltered}) => {
         return (
             <div>
                 <h2>Hello {currUser.name}</h2>
-                <Logout setError={setError} toggleRightPanel={toggleRightPanel} setFiltered={setFiltered}/>
+                <Logout setError={setError} toggleRightPanel={toggleRightPanel} />
             </div>
         )}
     
     return (
         
         <div>
-            <div className="text-danger">{error}</div>
+            {error && <div className="text-danger">{error}</div>}
             <div>
                 {login ? 
                     <Login setError={setError} toggleLogin={toggleLogin} toggleRightPanel={toggleRightPanel} />

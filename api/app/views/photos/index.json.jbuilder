@@ -1,17 +1,17 @@
 json.array! @photos do |photo|
 
-    json.id photo.id
+    json.photo_id photo.id
     
     json.url Rails.application.routes.url_helpers.rails_blob_path(photo.url, only_path: true) if photo.url.attached?
     json.desc photo.desc
-    json.user photo.user.name
-    json.photo_uid photo.user.id
+    json.owner_name photo.user.name
+    json.owner_id photo.user.id
 
 
-    json.users_liked photo.likes do |item|
+    json.liked_users photo.likes do |item|
         json.liked_id item.id
-        json.user_id item.user_id 
-        json.user_name item.user.name
+        json.liked_user_id item.user_id 
+        json.liked_user_name item.user.name
     end
         
 end

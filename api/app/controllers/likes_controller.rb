@@ -7,14 +7,10 @@ class LikesController < ApplicationController
     end
     def create
         @like= @photo.likes.create(user_id: current_user.id)
-        # render json: @like, only: [:id, :user_id]]
-#         json.liked_id @like.id
-# json.user_id @like.user_id 
+        
     end
     def destroy
         @like.destroy
-        # render json: nil
-        puts @like.id
         render json: @like.id
     end
 

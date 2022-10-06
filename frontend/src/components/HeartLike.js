@@ -3,7 +3,7 @@ import { Heart, HeartFill } from 'react-bootstrap-icons'
 import { like, unlike } from './actions/photoActions';
 
 const HeartLike =(props)=>{
-    const { photo_id, setCount, setUsersLiked, likeObj } = props
+    const { photo_id, setLikedUsers, likeObj } = props
     const [currUserLiked, setCurrUserLiked] = useState(null)
     const url=`http://localhost:3000/photos/${photo_id}/likes`
 
@@ -12,9 +12,9 @@ const HeartLike =(props)=>{
     const handleClick=e=>{
         e.preventDefault()
         currUserLiked ? 
-        unlike(`${url}/${currUserLiked.liked_id}`, currUserLiked.liked_id, setCount, setUsersLiked, setCurrUserLiked)
+        unlike(`${url}/${currUserLiked.liked_id}`, setLikedUsers, setCurrUserLiked)
         :
-        like(url, setCount, setUsersLiked, setCurrUserLiked)
+        like(url, setLikedUsers, setCurrUserLiked)
     }
 
     return (

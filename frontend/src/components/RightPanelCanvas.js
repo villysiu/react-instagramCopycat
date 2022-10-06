@@ -1,29 +1,27 @@
-import { Nav,Navbar, Offcanvas, Button } from "react-bootstrap"
+import { Nav, Offcanvas, Button } from "react-bootstrap"
 import User from './User'
 import AddPhoto from './AddPhoto';
  import { useContext } from "react";
 import { AppContext } from "../App";
-const RightPanelCanvas = ({rightPanel, toggleRightPanel, handleClick, setPhotos, setFiltered})=>{
-    const {currUser}=useContext(AppContext)
+const RightPanelCanvas = ({toggleRightPanel})=>{
+    const {currUser, setFiltered}=useContext(AppContext)
     return (
-        <Navbar.Offcanvas 
-            id={`offcanvasNavbar`} aria-labelledby={`offcanvasNavbarLabel`} placement="end"
-            show={rightPanel} scroll="true" onHide={()=>toggleRightPanel(false)} >
-            <Offcanvas.Header closeButton onClick={handleClick} >
-                <Offcanvas.Title id={`offcanvasNavbarLabel`}>
+        <>
+            <Offcanvas.Header closeButton onClick={()=>toggleRightPanel(false)} >
+                <Offcanvas.Title>
                     {currUser && <Button variant="primary" onClick={()=>setFiltered(true)} > {currUser.name[0]} </Button> }
                 </Offcanvas.Title>
             </Offcanvas.Header>
             <Offcanvas.Body>
             
                 <Nav className="justify-content-end flex-grow-1 pe-3">
-                    <User toggleRightPanel={toggleRightPanel} setFiltered={setFiltered}/> 
+                    <User toggleRightPanel={toggleRightPanel} /> 
                 </Nav>
             
-                {currUser &&  <div><hr /><AddPhoto toggleRightPanel={toggleRightPanel} setPhotos= {setPhotos} /></div> }
+                {currUser &&  <div><hr /><AddPhoto toggleRightPanel={toggleRightPanel} /></div> }
             
             </Offcanvas.Body>
-        </Navbar.Offcanvas>
+            </>
     )
 }
 export default RightPanelCanvas

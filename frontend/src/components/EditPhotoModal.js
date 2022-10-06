@@ -1,25 +1,25 @@
 import { Modal, Button, Image, Form } from  'react-bootstrap';
-import { useState } from 'react';
+import { useState, useContext} from 'react';
 import {updatePhoto, deletePhoto } from './actions/photoActions'
+import { AppContext } from '../App';
 
-
-const EditPhotoModal=({show, setShow, photo, setDesc, setPhotos})=>{
-    const {id, url}=photo
-    const [descBox, setDescBox]=useState( photo.desc )
+const EditPhotoModal=({setShow, photo_id, url, descState, setDescState})=>{
+    const {dispatch}=useContext(AppContext)
+    const [descBox, setDescBox]=useState( descState)
 
     const handleSubmit=e=>{
         e.preventDefault()
         const formData=new FormData()
         formData.append("desc", e.target.descBox.value)
-        updatePhoto(id, formData, setDesc, setShow )
+        updatePhoto(photo_id, formData, setDescState, setShow )
         e.target.reset()
     }
     const handleDelete=e=>{
         e.preventDefault()
-        deletePhoto(id, setShow, setPhotos)
+        deletePhoto(photo_id, setShow, dispatch)
     }
     return (
-        <Modal show={show} onHide={() => setShow(false)}>
+        <>
             <Modal.Header closeButton>
             <Modal.Title><Image src={'http://localhost:3000'+url} width="100" /></Modal.Title>
             </Modal.Header>
@@ -41,7 +41,7 @@ const EditPhotoModal=({show, setShow, photo, setDesc, setPhotos})=>{
                     </Button>
                 </Modal.Footer>
             </Form>
-        </Modal>
+        </>
     )
 }
 export default EditPhotoModal

@@ -2,13 +2,12 @@ import { useContext } from "react";
 import { AppContext } from '../App'
 import Button from "react-bootstrap/Button";
 import { logout } from "./actions/userActions";
-const Logout =({setError,toggleRightPanel, setFiltered})=>{
-    const {setCurrUser} = useContext(AppContext);
+const Logout =({setError,toggleRightPanel})=>{
+    const {setCurrUser, setFiltered} = useContext(AppContext);
     
     const handleClick=e=>{
         e.preventDefault()
-        logout(setCurrUser, setError, toggleRightPanel)
-        setFiltered(false)
+        logout(setCurrUser,setFiltered, setError, toggleRightPanel)
     }
     return (
         <div>

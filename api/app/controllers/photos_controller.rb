@@ -10,12 +10,12 @@ class PhotosController < ApplicationController
 
     def update
         @photo.update(desc: params[:desc])
-        render json:nil
+        render json:@photo.id
     end
     def destroy
         @photo.url.purge
         @photo.destroy
-        render json: nil
+        render json: @photo.id
     end
 
     private

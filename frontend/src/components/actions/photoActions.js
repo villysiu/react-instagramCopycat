@@ -2,23 +2,36 @@ const url="http://localhost:3000"
 
 
 
-export const fetchPhotos=async (setPhotos, setPLoading) =>{
-    setPLoading(true)
+// export const fetchPhotos=async (setPhotos, setPLoading) =>{
+//     setPLoading(true)
+//     try{
+//         const response=await fetch(`${url}/photos.json`)
+//         const data=await response.json()
+//         if(!response.ok) throw data.error
+//         setPhotos(data)
+//     } catch(error){
+//         console.log(error)
+//         setPhotos([])
+//     }
+//     finally{
+//         setPLoading(false)
+//     }
+// }
+export const fetchPhotos=async (dispatch) =>{
+    // setPLoading(true)
     try{
         const response=await fetch(`${url}/photos.json`)
         const data=await response.json()
         if(!response.ok) throw data.error
-        setPhotos(data)
+        dispatch({type:"FETCH_PHOTOS", payload: data})
+        
     } catch(error){
         console.log(error)
-        setPhotos([])
+        dispatch({type:"FETCH_ERROR", payload: error})
     }
-    finally{
-        setPLoading(false)
-    }
+
 }
-export const addPhoto=async (formData, setPhotos, setError, toggleRightPanel)=>{
-    
+export const addPhoto=async (formData, dispatch, toggleRightPanel)=>{
     try {
         const response=await fetch(`${url}/photos`, {
             method: 'POST',
@@ -28,16 +41,36 @@ export const addPhoto=async (formData, setPhotos, setError, toggleRightPanel)=>{
             body: formData
         })
         const data=await response.json()
+        console.log(data)
         if(!response.ok) throw data.error
-        
-        setPhotos(prev=>[data, ...prev])
-        setError(null)
+        dispatch({type: 'ADD_PHOTO', payload: data})
         toggleRightPanel(false)
     }catch(error){
         console.log(error)
-        setError("Oops! Something went wrong. Please try again")
+        dispatch({type: 'ADD_ERROR', payload: "Oops! Something went wrong. Please try again"})
     }
 }
+// export const addPhoto=async (formData, setPhotos, setError, toggleRightPanel)=>{
+    
+//     try {
+//         const response=await fetch(`${url}/photos`, {
+//             method: 'POST',
+//             headers: {
+//                 "Authorization": localStorage.getItem("token")
+//             },
+//             body: formData
+//         })
+//         const data=await response.json()
+//         if(!response.ok) throw data.error
+        
+//         setPhotos(prev=>[data, ...prev])
+//         setError(null)
+//         toggleRightPanel(false)
+//     }catch(error){
+//         console.log(error)
+//         setError("Oops! Something went wrong. Please try again")
+//     }
+// }
 export const updatePhoto=async (id, formData, setDesc, setShow )=>{
     try{
         const response=await fetch(`${url}/photos/${id}`, {
@@ -56,7 +89,7 @@ export const updatePhoto=async (id, formData, setDesc, setShow )=>{
         window.location.reload()
     }
 }
-export const deletePhoto=async (id, setShow, setPhotos)=>{
+export const deletePhoto=async (id, setShow, dispatch)=>{
     
     try {
         const response=await fetch(`${url}/photos/${id}`, {
@@ -69,14 +102,15 @@ export const deletePhoto=async (id, setShow, setPhotos)=>{
         const data=await response.json()
         if(!response.ok) throw data.error
 
-        setPhotos(prev => prev.filter(p=>p.id!==id));
+        // setPhotos(prev => prev.filter(p=>p.id!==id));
+        dispatch({type:'DELETE_PHOTO', payload:id})
         setShow(false)
     } catch (error) {
         console.log(error)
     }
 }
 
-export const unlike=async (url, likeId, setCount, setUsersLiked, setCurrUserLiked )=>{
+export const unlike=async (url, setLikedUsers, setCurrUserLiked )=>{
     
     try {
         const response = await fetch(url, {
@@ -90,8 +124,7 @@ export const unlike=async (url, likeId, setCount, setUsersLiked, setCurrUserLike
         if(!response.ok) throw data.error
         console.log(data)
         setCurrUserLiked(null)
-        setCount(prev=>prev-1)
-        setUsersLiked(prev=>prev.filter(obj=>obj.liked_id!==data))
+        setLikedUsers(prev=>prev.filter(obj=>obj.liked_id!==data))
         
     } catch (error) {
         setCurrUserLiked(null)
@@ -99,7 +132,7 @@ export const unlike=async (url, likeId, setCount, setUsersLiked, setCurrUserLike
         // window.location.reload()
     }
 }
-export const like=async (url, setCount, setUsersLiked, setCurrUserLiked )=>{
+export const like=async (url, setLikedUsers, setCurrUserLiked )=>{
     
     try {
         const response = await fetch(url, {
@@ -113,8 +146,7 @@ export const like=async (url, setCount, setUsersLiked, setCurrUserLiked )=>{
         if(!response.ok) throw data.error
         console.log(data)
         setCurrUserLiked(data)
-        setCount(prev=>prev+1)
-        setUsersLiked(prev=>[...prev, data])
+        setLikedUsers(prev=>[...prev, data])
         
     } catch (error) {
         setCurrUserLiked(null)

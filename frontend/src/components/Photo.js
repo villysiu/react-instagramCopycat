@@ -1,30 +1,31 @@
 import React from "react";
-import { useState } from "react";
-import {Container, Col, Row, Card, Button} from 'react-bootstrap';
-import {ThreeDots} from 'react-bootstrap-icons'
-import { Heart } from 'react-bootstrap-icons'
-import {OverlayTrigger, Tooltip} from 'react-bootstrap';
+import { useState, useContext } from "react";
+import {Container, Col, Row, Card, Modal, OverlayTrigger, Tooltip} from 'react-bootstrap';
+import {ThreeDots, Heart} from 'react-bootstrap-icons'
+
 import EditPhotoModal from "./EditPhotoModal";
 import HeartLike from './HeartLike'
-// import LikeFeature from "./LikeFeature";
+import { AppContext } from "../App";
 
-const Photo= ({photo, currUser, setPhotos})=>{
-  
-  const {id, url, photo_uid, user, users_liked}=photo
-  const [desc, setDesc] = useState(photo.desc);
+const Photo= (props)=>{  
+ 
+  const {currUser}=useContext(AppContext)
+
+  const {desc, liked_users, owner_id, owner_name, photo_id, url}=props
+
+  const [descState, setDescState] = useState(desc);
+  const [likedUsers, setLikedUsers]=useState(liked_users)
   const [show, setShow] = useState(false);
-  const [count, setCount] = useState(users_liked.length)
-  const [usersLiked, setUsersLiked]=useState(users_liked)
-  
     return (
       <Card style={{ background: "linear-gradient(rgba(255,255,255,.5), rgba(255,255,255,.5))" }}>
         <Container ><Row>
-          <Col><h5>{user} </h5></Col> 
+          <Col><h5>{owner_name} </h5></Col> 
           <Col align="right">
-            {currUser && currUser.id===photo_uid && 
+            {currUser && currUser.id===owner_id && 
             <ThreeDots style = {{transform: 'rotate(90deg)' }} onClick={()=>setShow(true)} /> }
-
-            <EditPhotoModal show={show} setShow={setShow}  photo={{id, url, desc}} setDesc={setDesc} setPhotos={setPhotos} />
+            <Modal show={show} onHide={() => setShow(false)}>
+              <EditPhotoModal setShow={setShow}  photo_id={photo_id} url={url} descState={descState} setDescState={setDescState} />
+            </Modal>
           </Col>
         </Row></Container>
         
@@ -32,7 +33,7 @@ const Photo= ({photo, currUser, setPhotos})=>{
         <Container ><Row>
           <Col>
         {currUser? 
-          <HeartLike photo_id={id} setCount={setCount} setUsersLiked={setUsersLiked} likeObj={usersLiked.find(u=>u.user_id===currUser.id)} /> 
+          <HeartLike photo_id={photo_id} setLikedUsers={setLikedUsers} likeObj={likedUsers.find(u=>u.liked_user_id===currUser.id)} /> 
          :
           <OverlayTrigger placement="top" overlay={ <Tooltip>Please login or signup.</Tooltip>}>
               <Heart className='heart' color="black"/>
@@ -42,15 +43,15 @@ const Photo= ({photo, currUser, setPhotos})=>{
         <OverlayTrigger placement="top" overlay={
         <Tooltip >
           {
-            usersLiked.length===0 ?
+            likedUsers.length===0 ?
             <div>No like yet.</div>:
-            usersLiked.map(like=><div key={like.liked_id}>{like.user_name}</div>)}
+            likedUsers.map(likedUser=><div key={likedUser.liked_user_id}>{likedUser.liked_user_name}</div>)}
         </Tooltip>}>  
         
-            <span style={{ marginLeft: '.5rem' }}> {count} likes </span>
+            <span style={{ marginLeft: '.5rem' }}> {likedUsers.length} likes </span>
         </OverlayTrigger>
         </Col></Row></Container>
-        <Card.Text> {desc} </Card.Text>
+        <Card.Text> {descState} </Card.Text>
      
       </Card> 
      

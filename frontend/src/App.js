@@ -1,19 +1,20 @@
-import { useEffect, useState, createContext } from 'react';
+import { useEffect, useState, createContext, useReducer } from 'react';
 import {fetchPhotos} from './components/actions/photoActions'
 import './App.css';
 import bubble_bd from './data/bubble_bd.png'
 import PhotoList from './components/PhotoList';
 import Header from './components/Header';
 import Spinner from 'react-bootstrap/Spinner';
-
+import { reducer } from './components/reducers/reducer';
 export const AppContext = createContext();
+
+
 const App=()=>{
   const [currUser, setCurrUser]=useState(null);
   const [loading, setLoading]=useState(true)
-  const [pLoading, setPLoading]=useState(true)
-  const [photos, setPhotos]=useState([])
   const [filtered, setFiltered]=useState(false)
-
+  const initialState={loading: true, photos:[],error:null}
+  const [state, dispatch]=useReducer(reducer, initialState)
   useEffect(()=>{
     if(localStorage.getItem('exp')>Date.now()){
       setCurrUser(JSON.parse(localStorage.getItem('currUser')))
@@ -25,23 +26,24 @@ const App=()=>{
   } , [])
 
   useEffect(()=>{
-    fetchPhotos(setPhotos, setPLoading)
+    fetchPhotos(dispatch)
   }, [])
 
   return (
     
     <div className="App" style={{ backgroundImage: `url(${bubble_bd})`, backgroundSize: 'cover'}}>
-        {loading || pLoading? 
+        {loading || state.loading? 
           
             <div><Spinner animation="border" /></div>
             :
             <div>
-              <AppContext.Provider value={{ currUser: currUser, setCurrUser:setCurrUser }} >
-                <Header setPhotos={setPhotos} setFiltered={setFiltered}/>
-              </AppContext.Provider>
+              <AppContext.Provider value={{ currUser: currUser, setCurrUser:setCurrUser, setFiltered:setFiltered, state: state, dispatch:dispatch }} >
+                <Header setFiltered={setFiltered}  />
+              
 
-              <br /><br /><br />
-              <PhotoList currUser={currUser} setPhotos={setPhotos} photos={filtered? photos.filter(photo=>photo.photo_uid===currUser.id) : photos} /> 
+                <br /><br /><br />
+                <PhotoList photos={filtered? state.photos.filter(photo=>photo.owner_id===currUser.id) : state.photos} /> 
+              </AppContext.Provider>
             </div>
         }
     </div> 

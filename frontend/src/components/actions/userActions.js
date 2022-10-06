@@ -49,7 +49,7 @@ export const signup=async (userInfo, setCurrUser, setError, toggleRightPanel)=>{
     }
 }
 
-export const logout=async (setCurrUser, setError, toggleRightPanel)=>{
+export const logout=async (setCurrUser, setFiltered, setError, toggleRightPanel)=>{
     try{
         const response=await fetch(`${url}/logout`, {
             method: 'DELETE',
@@ -63,6 +63,7 @@ export const logout=async (setCurrUser, setError, toggleRightPanel)=>{
     
         localStorage.clear()
         setCurrUser(null)
+        setFiltered(false)
         toggleRightPanel(false)
         
     }catch(error){
