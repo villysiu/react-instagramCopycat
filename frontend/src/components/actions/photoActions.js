@@ -22,7 +22,6 @@ export const addPhoto=async (formData, dispatch, toggleRightPanel)=>{
             body: formData
         })
         const data=await response.json()
-        console.log(data)
         if(!response.ok) throw data.error
         dispatch({type: 'ADD_PHOTO', payload: data})
         toggleRightPanel(false)
@@ -82,7 +81,6 @@ export const unlike=async (url, setLikedUsers, setCurrUserLiked )=>{
         })
         const data=await response.json()
         if(!response.ok) throw data.error
-        console.log(data)
         setCurrUserLiked(null)
         setLikedUsers(prev=>prev.filter(obj=>obj.liked_id!==data))
         
@@ -102,7 +100,6 @@ export const like=async (url, setLikedUsers, setCurrUserLiked )=>{
         })
         const data=await response.json()
         if(!response.ok) throw data.error
-        console.log(data)
         setCurrUserLiked(data)
         setLikedUsers(prev=>[...prev, data])
         
