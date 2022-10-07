@@ -6,6 +6,7 @@ import PhotoList from './components/PhotoList';
 import Header from './components/Header';
 import Spinner from 'react-bootstrap/Spinner';
 import { reducer } from './components/reducers/reducer';
+import Footer from './components/Footer';
 export const AppContext = createContext();
 
 
@@ -43,6 +44,8 @@ const App=()=>{
 
                 <br /><br /><br />
                 <PhotoList photos={filtered? state.photos.filter(photo=>photo.owner_id===currUser.id) : state.photos} /> 
+                <br /><br /><br /><br /><br /><br />
+                <Footer />
               </AppContext.Provider>
             </div>
         }

@@ -15,7 +15,7 @@ const Header = () =>{
             <Navbar.Brand href="#" onClick={()=>setFiltered(false)} className="font-face-bb">Instagram Copycat</Navbar.Brand>
             <div onClick={()=>toggleRightPanel(true)} >
               {
-                currUser?  <Button variant="primary" > {currUser.name[0]} </Button> 
+                currUser?  <Button variant="primary" > {currUser.name[0].toUpperCase()} </Button> 
                 :
                 <Navbar.Toggle aria-controls={`offcanvasNavbar`} />
               }

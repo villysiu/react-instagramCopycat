@@ -9,7 +9,7 @@ const RightPanelCanvas = ({toggleRightPanel})=>{
         <>
             <Offcanvas.Header closeButton onClick={()=>toggleRightPanel(false)} >
                 <Offcanvas.Title>
-                    {currUser && <Button variant="primary" onClick={()=>setFiltered(true)} > {currUser.name[0]} </Button> }
+                    {currUser && <Button variant="primary" onClick={()=>setFiltered(true)} > {currUser.name[0].toUpperCase()} </Button> }
                 </Offcanvas.Title>
             </Offcanvas.Header>
             <Offcanvas.Body>

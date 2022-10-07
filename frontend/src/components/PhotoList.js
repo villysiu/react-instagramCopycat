@@ -2,6 +2,7 @@ import Photo from "./Photo"
 import { Container, Row } from 'react-bootstrap';
 
 const PhotoList=({photos})=>{
+    
     return (
         <Container>
             <Row>
