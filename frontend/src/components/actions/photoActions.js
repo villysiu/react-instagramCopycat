@@ -1,24 +1,6 @@
 const url="http://localhost:3000"
 
-
-
-// export const fetchPhotos=async (setPhotos, setPLoading) =>{
-//     setPLoading(true)
-//     try{
-//         const response=await fetch(`${url}/photos.json`)
-//         const data=await response.json()
-//         if(!response.ok) throw data.error
-//         setPhotos(data)
-//     } catch(error){
-//         console.log(error)
-//         setPhotos([])
-//     }
-//     finally{
-//         setPLoading(false)
-//     }
-// }
 export const fetchPhotos=async (dispatch) =>{
-    // setPLoading(true)
     try{
         const response=await fetch(`${url}/photos.json`)
         const data=await response.json()
@@ -29,7 +11,6 @@ export const fetchPhotos=async (dispatch) =>{
         console.log(error)
         dispatch({type:"FETCH_ERROR", payload: error})
     }
-
 }
 export const addPhoto=async (formData, dispatch, toggleRightPanel)=>{
     try {
@@ -50,27 +31,7 @@ export const addPhoto=async (formData, dispatch, toggleRightPanel)=>{
         dispatch({type: 'ADD_ERROR', payload: "Oops! Something went wrong. Please try again"})
     }
 }
-// export const addPhoto=async (formData, setPhotos, setError, toggleRightPanel)=>{
-    
-//     try {
-//         const response=await fetch(`${url}/photos`, {
-//             method: 'POST',
-//             headers: {
-//                 "Authorization": localStorage.getItem("token")
-//             },
-//             body: formData
-//         })
-//         const data=await response.json()
-//         if(!response.ok) throw data.error
-        
-//         setPhotos(prev=>[data, ...prev])
-//         setError(null)
-//         toggleRightPanel(false)
-//     }catch(error){
-//         console.log(error)
-//         setError("Oops! Something went wrong. Please try again")
-//     }
-// }
+
 export const updatePhoto=async (id, formData, setDesc, setShow )=>{
     try{
         const response=await fetch(`${url}/photos/${id}`, {
@@ -102,7 +63,6 @@ export const deletePhoto=async (id, setShow, dispatch)=>{
         const data=await response.json()
         if(!response.ok) throw data.error
 
-        // setPhotos(prev => prev.filter(p=>p.id!==id));
         dispatch({type:'DELETE_PHOTO', payload:id})
         setShow(false)
     } catch (error) {
@@ -128,8 +88,6 @@ export const unlike=async (url, setLikedUsers, setCurrUserLiked )=>{
         
     } catch (error) {
         setCurrUserLiked(null)
-        
-        // window.location.reload()
     }
 }
 export const like=async (url, setLikedUsers, setCurrUserLiked )=>{

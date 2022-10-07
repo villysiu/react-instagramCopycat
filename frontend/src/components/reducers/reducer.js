@@ -1,5 +1,4 @@
 export const reducer=(state, action)=>{
-  console.log(action.payload)
     switch (action.type) {
       case "FETCH_PHOTOS":
           return {
